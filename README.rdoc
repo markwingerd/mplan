@@ -1,6 +1,0 @@
-== README
-Setup:
-bundle install
-rake db:create db:migrate db:seed
-
-Rails version 4.2.4
