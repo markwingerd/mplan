@@ -1,0 +1,32 @@
+<table border=1>
+	<tr>
+		<th>Grocery List</th>
+		<th>Items on hand</th>
+	</tr>
+	<% @all_ingredients.each do |needed, stocked| %>
+		<tr>
+			<td>
+				<% if stocked[0].to_f >= needed[0].to_f %><strike><% end %>
+				<%= needed[0] %>
+				<%= needed[1] %>
+				<% if stocked[0].to_f >= needed[0].to_f %></strike><% end %>
+			</td>
+			<td>
+				<%= stocked[0] %>
+				<%= stocked[1] %>
+			</td>
+		</tr>
+	<% end %>
+</table>
+
+<%= form_for @user, url: ingredients_list_path(current_user) do |f| %>
+	<fieldset id="recipe-ingredients">
+		<ol>
+			<%= f.fields_for :quantities do |quantity| %>
+				<%= render 'quantity_fields', f: quantity %>
+			<% end %>
+		</ol>
+		<%= link_to_add_association 'add ingredient', f, :quantities, 'data-association-insertion-node' => "#recipe-ingredients ol", 'data-association-insertion-method' => "append", :wrap_object => Proc.new {|quantity| quantity.build_ingredient; quantity } %>
+	</fieldset>
+    <%= f.submit %>
+<% end %>

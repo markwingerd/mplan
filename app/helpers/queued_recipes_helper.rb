@@ -1,0 +1,2 @@
+module QueuedRecipesHelper
+end

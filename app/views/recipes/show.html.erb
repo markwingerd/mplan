@@ -1,0 +1,28 @@
+<p>
+  <strong>Title:</strong>
+  <%= @recipe.title %>
+</p>
+ 
+<p>
+  <strong>Description:</strong>
+  <%= @recipe.description %>
+</p>
+
+<p>
+  <strong>Instructions:</strong>
+  <%= @recipe.instructions %>
+</p>
+ 
+<p>
+  <strong>Ingredients:</strong>
+  <% @recipe.quantities.each do |qty| %>
+  	<%= qty.amount %>
+  	<%= qty.ingredient.name %><br />
+  <% end %>
+</p>
+
+<%= link_to 'Add Recipe', {:controller => 'queued_recipes',
+                           :action => 'create',
+                           :recipe_id => @recipe.id,
+                           :user_id => current_user.id},
+                           :method => 'post' %>

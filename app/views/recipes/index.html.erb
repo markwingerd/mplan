@@ -1,0 +1,13 @@
+<h1>Recipes</h1>
+<table>
+ 	<tr>
+ 		<th>Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+ 		<th>Description</th>
+ 	</tr>
+ 	<% @recipes.each do |recipe| %>
+ 		<tr>
+ 			<td><%= link_to recipe.title, recipe_path(recipe) %></td>
+ 			<td><%= recipe.description %></td>
+ 		</tr>
+ 	<% end %>
+</table>
