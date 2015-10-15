@@ -1,3 +1,9 @@
+<h1>Recipes Queued</h1>
+<% @user.recipes.each do |recipe| %>
+	<%= link_to recipe.title, recipe %><br />
+<% end %>
+<br />
+
 <table border=1>
 	<tr>
 		<th>Grocery List</th>
@@ -18,6 +24,7 @@
 		</tr>
 	<% end %>
 </table>
+<br />
 
 <%= form_for @user, url: ingredients_list_path(current_user) do |f| %>
 	<fieldset id="recipe-ingredients">
