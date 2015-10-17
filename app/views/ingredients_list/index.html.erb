@@ -1,6 +1,7 @@
 <h1>Recipes Queued</h1>
-<% @user.recipes.each do |recipe| %>
-	<%= link_to recipe.title, recipe %><br />
+<% @user.queued_recipes.each do |qr| %>
+	<%= link_to qr.recipe.title, qr.recipe %> | 
+	<%= link_to "remove",  queued_recipe_path(qr), :method => :delete %><br />
 <% end %>
 <br />
 
