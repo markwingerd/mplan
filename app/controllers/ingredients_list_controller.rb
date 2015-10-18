@@ -5,24 +5,16 @@ class IngredientsListController < ApplicationController
 	def index
 		@user = User.find(current_user.id)
 
-		# Get a hash of all ingredient names for what a user has in stock.
-		stocked_ingredients = {}
-		for qty in @user.quantities do
-			stocked_ingredients[qty.ingredient.name] = qty.amount
-		end
+		stocked_ingredients = quantities_to_hash(@user.quantities)
 
 		# Get a hash of all ingredient names for each recipe a user has queued.
-		needed_ingredients = {}
+		all_quantities = []
 		for recipe in @user.recipes do
-		 	for qty in recipe.quantities do
-		 		if needed_ingredients.keys.include?(qty.ingredient.name)
-		 			needed_ingredients[qty.ingredient.name] += qty.amount
-		 		else
-					needed_ingredients[qty.ingredient.name] = qty.amount
-				end
-		 	end			
+			all_quantities << recipe.quantities
 		end
+		needed_ingredients = quantities_to_hash(all_quantities.flatten)
 
+		# TODO: Refactor this. Its a hot mess.
 		# Combine both hashes into a three dimentional list for the view. The 
 		# outer list represents every unique ingredient a user may have. The
 		# middle list represents a single ingredient and only ever contains
@@ -33,16 +25,19 @@ class IngredientsListController < ApplicationController
 		@all_ingredients = []
 		for ingredient in needed_ingredients.keys do
 			if stocked_ingredients.keys.include?(ingredient)
-				@all_ingredients << [ [needed_ingredients[ingredient], ingredient], [stocked_ingredients[ingredient], ingredient] ]
+				@all_ingredients << [ [needed_ingredients[ingredient], ingredient], 
+									  [stocked_ingredients[ingredient], ingredient] ]
 				stocked_ingredients.delete(ingredient)
 			else
-				@all_ingredients << [ [needed_ingredients[ingredient], ingredient], ["", ""] ] # No stocked ingredients
+				@all_ingredients << [ [needed_ingredients[ingredient], ingredient], 
+									  ["", ""] ] # No stocked ingredients
 			end
 		end
 		# No more needed ingredients, fill the remaining stocked at the end
 		# of the list.
 		for ingredient in stocked_ingredients.keys do
-			@all_ingredients << [ ["", ""], [stocked_ingredients[ingredient], ingredient] ]
+			@all_ingredients << [ ["", ""], 
+								  [stocked_ingredients[ingredient], ingredient] ]
 		end
 		
 	end
@@ -65,8 +60,18 @@ class IngredientsListController < ApplicationController
 			params.require(:user).permit(quantities_attributes: [:id, :amount, :ingredient_id, :_destroy])
 		end
 
-		def quantity_to_hash(qty)
-			return {qty.ingredient.name => qty}
+		# Takes an array of quantity records and returns a hash of string, quantity values
+		def quantities_to_hash(quantities)
+			ret_value = {}
+		 	for qty in quantities do
+		 		if ret_value.keys.include?(qty.ingredient.name)
+		 			ret_value[qty.ingredient.name] += qty.amount
+		 		else
+					ret_value[qty.ingredient.name] = qty.amount
+				end
+		 	end	
+			
+			return ret_value
 		end
 
 end
