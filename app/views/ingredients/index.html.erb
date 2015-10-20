@@ -1,0 +1,20 @@
+<table border="1">
+	<tr>
+		<th>Ingredient</th>
+		<th>Vegitarian</th>
+		<th>Vegan</th>
+		<th>Lactose Free</th>
+		<th>Gluten Free</th>
+		<th>Buy in whole units</th>
+	</tr>
+	<% @ingredients.each do |i| %>
+	<tr>
+		<td><%= i.name %></td>
+		<td><%= i.vegitarian %></td>
+		<td><%= i.vegan %></td>
+		<td><%= i.lactoseFree %></td>
+		<td><%= i.glutenFree %></td>
+		<td><%= i.buyInWholeUnits %></td>
+	</tr>
+	<% end %>
+</table>
