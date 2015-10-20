@@ -6,17 +6,17 @@
 #   cities = City.create([{ name: "Chicago" }, { name: "Copenhagen" }])
 #   Mayor.create(name: "Emanuel", city: cities.first)
 User.create(:email => "asdf@asdf.com", :password => "asdfasdf", :password_confirmation => "asdfasdf")
-Ingredient.create([{ name: "Chicken", buyInWholeUnites: true }, #1
-				   { name: "Salt", vegan: true }, #2
-				   { name: "Pepper", vegan: true }, #3
+Ingredient.create([{ name: "Chicken" }, #1
+				   { name: "Salt", vegan: true, buyInWholeUnits: false }, #2
+				   { name: "Pepper", vegan: true, buyInWholeUnits: false }, #3
 				   { name: "Whole-wheat seaseme buns", vegan: true, glutenFree: false }, #4
 				   { name: "Red Onion", vegan: true }, #5
 				   { name: "Red Peppers", vegan: true }, #6
-				   { name: "Chimichurri", vegan: true }, #7
+				   { name: "Chimichurri", vegan: true, buyInWholeUnits: false }, #7
 				   { name: "Lemon", vegan: true }, #8
-				   { name: "Olive Oil", vegan: true }, #9
+				   { name: "Olive Oil", vegan: true, buyInWholeUnits: false }, #9
 				   { name: "Pizza Crust", vegan: true, glutenFree: false }, #10
-				   { name: "Barbeque Sauce", vegitarian: true, glutenFree: false }, #11
+				   { name: "Barbeque Sauce", vegitarian: true, glutenFree: false, buyInWholeUnits: false }, #11
 				   { name: "Smoked Gouda", vegitarian: true, lactoseFree: false },
 				   { name: "Jalapeno Pepper", vegan: true}
 				  ])

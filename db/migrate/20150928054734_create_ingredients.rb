@@ -12,7 +12,7 @@ class CreateIngredients < ActiveRecord::Migration
     	t.boolean :glutenFree, :default => true
 
     	# Purchase properties
-    	t.boolean :buyInWholeUnites, :default => false
+    	t.boolean :buyInWholeUnits, :default => true
     	
       t.timestamps null: false
     end
