@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :recipes
   resources :ingredients_list
   resources :queued_recipes
+  resources :ingredients
 
   get 'landing/index'
 
