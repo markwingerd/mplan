@@ -6,19 +6,20 @@
 #   cities = City.create([{ name: "Chicago" }, { name: "Copenhagen" }])
 #   Mayor.create(name: "Emanuel", city: cities.first)
 User.create(:email => "asdf@asdf.com", :password => "asdfasdf", :password_confirmation => "asdfasdf")
-Ingredient.create([{ name: "Chicken" }, #1
-				   { name: "Salt" }, #2
-				   { name: "Pepper" }, #3
-				   { name: "Whole-wheat seaseme buns" }, #4
-				   { name: "Red Onion" }, #5
-				   { name: "Red Peppers" }, #6
-				   { name: "Chimichurri" }, #7
-				   { name: "Lemon" }, #8
-				   { name: "Olive Oil" }, #9
-				   { name: "Pizza Crust" }, #10
-				   { name: "Barbeque Sauce" }, #11
-				   { name: "Smoked Gouda" },
-				   { name: "Jalapeno Pepper"}])
+Ingredient.create([{ name: "Chicken", buyInWholeUnites: true }, #1
+				   { name: "Salt", vegan: true }, #2
+				   { name: "Pepper", vegan: true }, #3
+				   { name: "Whole-wheat seaseme buns", vegan: true, glutenFree: false }, #4
+				   { name: "Red Onion", vegan: true }, #5
+				   { name: "Red Peppers", vegan: true }, #6
+				   { name: "Chimichurri", vegan: true }, #7
+				   { name: "Lemon", vegan: true }, #8
+				   { name: "Olive Oil", vegan: true }, #9
+				   { name: "Pizza Crust", vegan: true, glutenFree: false }, #10
+				   { name: "Barbeque Sauce", vegitarian: true, glutenFree: false }, #11
+				   { name: "Smoked Gouda", vegitarian: true, lactoseFree: false },
+				   { name: "Jalapeno Pepper", vegan: true}
+				  ])
 Quantity.create(:user_id => 1, :amount => 1, :ingredient_id => 1)
 Quantity.create(:user_id => 1, :amount => 4, :ingredient_id => 2)
 Quantity.create(:user_id => 1, :amount => 4, :ingredient_id => 3)

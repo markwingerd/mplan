@@ -8,10 +8,8 @@ class CreateIngredients < ActiveRecord::Migration
     	t.boolean :vegan, :default => false
 
     	# Allergens
-    	t.boolean :lactoseFree, :default => false
-    	t.boolean :glutenFree, :default => false
-    	t.boolean :peanutFree, :default => false
-    	t.boolean :soyFree, :default => false
+    	t.boolean :lactoseFree, :default => true
+    	t.boolean :glutenFree, :default => true
 
     	# Purchase properties
     	t.boolean :buyInWholeUnites, :default => false
