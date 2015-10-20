@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   resources :recipes
   resources :ingredients_list
   resources :queued_recipes
-  resources :ingredients
+  #resources :ingredients, :collection => { :update_multiple => :put }
+  resources :ingredients do
+    collection do
+      put :update_multiple
+    end
+  end
 
   get 'landing/index'
 

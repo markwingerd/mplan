@@ -1,20 +1,24 @@
-<table border="1">
-	<tr>
-		<th>Ingredient</th>
-		<th>Vegitarian</th>
-		<th>Vegan</th>
-		<th>Lactose Free</th>
-		<th>Gluten Free</th>
-		<th>Buy in whole units</th>
-	</tr>
-	<% @ingredients.each do |i| %>
-	<tr>
-		<td><%= i.name %></td>
-		<td><%= i.vegitarian %></td>
-		<td><%= i.vegan %></td>
-		<td><%= i.lactoseFree %></td>
-		<td><%= i.glutenFree %></td>
-		<td><%= i.buyInWholeUnits %></td>
-	</tr>
-	<% end %>
-</table>
+<%= form_for :ingredient, :url => update_multiple_ingredients_path, :html => { :method => :put } do |f| %>
+	<%= f.label :name %>
+	<table border="1">
+		<tr>
+			<th>Ingredient</th>
+			<th>Vegitarian</th>
+			<th>Vegan</th>
+			<th>Lactose Free</th>
+			<th>Gluten Free</th>
+			<th>Buy in whole units</th>
+		</tr>
+		<% @ingredients.each do |i| %>
+		<tr>
+			<td><%= i.name %></td>
+			<td><%= f.check_box(i.id, {checked: i.vegitarian}) %></td>
+			<td><%= i.vegan %></td>
+			<td><%= i.lactoseFree %></td>
+			<td><%= i.glutenFree %></td>
+			<td><%= i.buyInWholeUnits %></td>
+		</tr>
+		<% end %>
+	</table>
+	<p><%= f.submit "Submit" %></p>
+<% end %>
