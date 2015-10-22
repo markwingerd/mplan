@@ -9,14 +9,17 @@
 			<th>Gluten Free</th>
 			<th>Buy in whole units</th>
 		</tr>
-		<% @ingredients.each do |i| %>
+		<% @ingredients.each do |ingredient| %>
 		<tr>
-			<td><%= i.name %></td>
-			<td><%= f.check_box(i.id, {checked: i.vegitarian}) %></td>
-			<td><%= i.vegan %></td>
-			<td><%= i.lactoseFree %></td>
-			<td><%= i.glutenFree %></td>
-			<td><%= i.buyInWholeUnits %></td>
+			<%# http://guides.rubyonrails.org/form_helpers.html#understanding-parameter-naming-conventions %>
+			<%= f.fields_for ingredient, index: ingredient.id do |i| %>
+				<td><%= ingredient.name %></td>
+				<td><%= i.check_box("vegitarian", {checked: ingredient.vegitarian}) %></td>
+				<td><%= i.check_box("vegan", {checked: ingredient.vegan}) %></td>
+				<td><%= i.check_box("lactoseFree", {checked: ingredient.lactoseFree}) %></td>
+				<td><%= i.check_box("glutenFree", {checked: ingredient.glutenFree}) %></td>
+				<td><%= i.check_box("buyInWholeUnits", {checked: ingredient.buyInWholeUnits}) %></td>
+			<% end %>
 		</tr>
 		<% end %>
 	</table>
