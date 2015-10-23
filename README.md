@@ -13,3 +13,4 @@ Meal Planner is a rails based website which will provide several features for us
 - http://pcottle.github.io/learnGitBranching/
 - http://guides.railsgirls.com/github/
 - https://guides.github.com/introduction/flow/index.html
+- https://gist.github.com/hofmannsven/6814451
