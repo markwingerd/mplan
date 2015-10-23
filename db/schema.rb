@@ -15,8 +15,13 @@ ActiveRecord::Schema.define(version: 20151004075130) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "vegitarian",      default: false
+    t.boolean  "vegan",           default: false
+    t.boolean  "lactoseFree",     default: true
+    t.boolean  "glutenFree",      default: true
+    t.boolean  "buyInWholeUnits", default: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "quantities", force: :cascade do |t|
