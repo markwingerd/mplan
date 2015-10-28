@@ -15,11 +15,11 @@ class IngredientsController < ApplicationController
 		ingredient_ids = params[:ingredient][:ingredient].keys
 		ingredients = Ingredient.find(ingredient_ids)
 		ingredients.each do |ingredient|
-			ingredient_params = ingredient_params(ingredient.id)
-		 	# if ingredient_params[:vegan] == "1"
-		 	# 	ingredient_params[:vegitarian] = true
-		 	# end
-			ingredient.update_attributes!(ingredient_params)
+			ing_params = ingredient_params(ingredient.id)
+		 	if ing_params[:property_attributes][:vegan] == "1"
+		 		ing_params[:property_attributes][:vegitarian] = true
+		 	end
+			ingredient.update_attributes!(ing_params)
 		end	
 		
 		redirect_to :action => 'index'
