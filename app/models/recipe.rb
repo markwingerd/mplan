@@ -10,6 +10,8 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients,
            :through => :quantities
 
+  has_one :property
+
   accepts_nested_attributes_for :quantities,
            :reject_if => :all_blank,
            :allow_destroy => true
