@@ -14,13 +14,16 @@
 			<%# http://guides.rubyonrails.org/form_helpers.html#understanding-parameter-naming-conventions %>
 			<%= f.fields_for ingredient, index: ingredient.id do |i| %>
 				<td><%= ingredient.name %></td>
-				<%= i.fields_for ingredient.property do |p| %>
-					<td><%= p.check_box("vegitarian", {checked: ingredient.property.vegitarian}) %></td>
-					<td><%= p.check_box("vegan", {checked: ingredient.property.vegan}) %></td>
-					<td><%= p.check_box("lactoseFree", {checked: ingredient.property.lactoseFree}) %></td>
-					<td><%= p.check_box("glutenFree", {checked: ingredient.property.glutenFree}) %></td>
-				<% end %>
-				<td><%= i.check_box("buyInWholeUnits", {checked: ingredient.buyInWholeUnits}) %></td>
+				<td><%= i.check_box("[property_attributes]vegitarian", 
+						{checked: ingredient.property.vegitarian}) %></td>
+				<td><%= i.check_box("[property_attributes]vegan", 
+						{checked: ingredient.property.vegan}) %></td>
+				<td><%= i.check_box("[property_attributes]lactoseFree", 
+						{checked: ingredient.property.lactoseFree}) %></td>
+				<td><%= i.check_box("[property_attributes]glutenFree", 
+						{checked: ingredient.property.glutenFree}) %></td>
+				<td><%= i.check_box("buyInWholeUnits", 
+						{checked: ingredient.buyInWholeUnits}) %></td>
 			<% end %>
 		</tr>
 		<% end %>
