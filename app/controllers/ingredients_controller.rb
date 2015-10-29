@@ -5,20 +5,21 @@ class IngredientsController < ApplicationController
 	end
 
 	def update_multiple
-		#render plain: JSON.pretty_generate(params)
-
+		# Get ingredients from the database
 		ingredient_ids = params[:ingredient][:ingredient].keys
 		ingredients = Ingredient.find(ingredient_ids)
 		ingredients.each do |ingredient|
+			# Add property_id to params to allow rails to update the record rather than create a new one.
+			params[:ingredient][:ingredient][ingredient.id.to_s][:property_attributes][:id] = ingredient.property.id
 			ing_params = ingredient_params(ingredient.id)
-			if ing_params.has_key?(:property_attributes)
-			 	if ing_params[:property_attributes][:vegan] == "1"
-			 		ing_params[:property_attributes][:vegitarian] = true
-			 	end
-			end
+			# Set vegitarian to true to vegan is true.
+		 	if ing_params[:property_attributes][:vegan] == "1"
+		 		ing_params[:property_attributes][:vegitarian] = true
+		 	end
 			ingredient.update_attributes!(ing_params)
 		end	
 		
+		#render plain: JSON.pretty_generate(params)
 		redirect_to :action => 'index'
 	end
 
@@ -28,6 +29,7 @@ class IngredientsController < ApplicationController
 			params.require(:ingredient).require(:ingredient).require(id.to_s).permit(
 				:buyInWholeUnits,
 				:property_attributes => [
+					:id, 
 					:vegitarian, 
 					:vegan, 
 					:lactoseFree, 
