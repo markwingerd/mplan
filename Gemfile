@@ -35,6 +35,8 @@ gem 'formtastic', '~> 3.0'
 group :development, :test do
     gem 'railroady'
 end
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 ###
 
 # Use ActiveModel has_secure_password

@@ -1,12 +1,15 @@
 class RecipesController < ApplicationController
 
 	def index
-		#@recipes = Recipe.all
-		if params[:search]
-			@recipes = Recipe.search(params[:search])
-		else
-			@recipes = Recipe.all
+	 	query = params[:query]
+	 	command_hash = {}
+
+		search = Recipe.search do
+			fulltext query do
+				boost_fields :title => 2.0
+			end
 		end
+		@recipes = search.results
 	end
 
 	def show

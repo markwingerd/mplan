@@ -17,7 +17,7 @@ class Recipe < ActiveRecord::Base
            :allow_destroy => true
   accepts_nested_attributes_for :ingredients
 
-  def self.search(query)
-    where("title LIKE ?", "%#{query}%")
+  searchable do
+    text :title
   end
 end
