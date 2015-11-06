@@ -18,6 +18,25 @@ class Recipe < ActiveRecord::Base
   accepts_nested_attributes_for :ingredients
 
   searchable do
+
     text :title
+
+    text :ingredients do
+      ingredients.map { |ingredient| ingredient.name }
+    end
+
+    boolean :vegan, :stored => true do
+      property.vegan
+    end
+    boolean :vegitarian, :stored => true  do
+      property.vegitarian
+    end
+    boolean :lactose_free, :stored => true  do
+      property.lactoseFree
+    end
+    boolean :gluten_free, :stored => true  do
+      property.glutenFree
+    end
+
   end
 end

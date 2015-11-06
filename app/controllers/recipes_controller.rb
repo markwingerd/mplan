@@ -4,7 +4,26 @@ class RecipesController < ApplicationController
 	 	query = params[:query]
 	 	command_hash = {}
 
+	 	vegan_hash, query = parse_command("vegan", query)
+	 	vegitarian_hash, query = parse_command("vegitarian", query)
+	 	lactose_hash, query = parse_command("lactoseFree", query)
+	 	gluten_hash, query = parse_command("glutenFree", query)
+		command_hash = [vegan_hash, vegitarian_hash, lactose_hash, gluten_hash].reduce &:merge
+
 		search = Recipe.search do
+			if command_hash.has_key?("vegan")
+  				with(:vegan, true)
+  			end
+			if command_hash.has_key?("vegitarian")
+  				with(:vegitarian, true)
+  			end
+			if command_hash.has_key?("lactoseFree")
+  				with(:lactose_free, true)
+  			end
+			if command_hash.has_key?("glutenFree")
+  				with(:gluten_free, true)
+  			end
+
 			fulltext query do
 				boost_fields :title => 2.0
 			end
@@ -30,7 +49,7 @@ class RecipesController < ApplicationController
 			@recipe.property.vegitarian = @recipe.ingredients.map {|ingredient| ingredient.property.vegitarian}.all?
 			@recipe.property.vegan = @recipe.ingredients.map {|ingredient| ingredient.property.vegan}.all?
 
-			if @recipe.property.save
+			if @recipe.property.save && @recipe.save	# @recipe.save is needed to trigger Sunspot to index that above changes to @recipe.property
 				flash[:success] = 'Successfully created recipe'
 				redirect_to @recipe
 			else
@@ -57,8 +76,23 @@ class RecipesController < ApplicationController
 			params.require(:recipe).permit(:title, :description, :instructions, quantities_attributes: [:amount, :ingredient_id])
 		end
 
-		def get_recipe_properties(ingredients)
-			return ingredients.map {|ingredient| ingredient.property.glutenFree}.all?
-			#return ingredients[0].property.glutenFree
+		def parse_command(cmd, q)
+			if q == nil; return q end 
+			cmd_hash = {}
+			clean_query = []
+			if q.include?(cmd)
+				tmp = q.split(cmd + ':')[1]
+				clean_query << q.split(cmd + ':')[0]
+				if tmp[0] == "\""
+					cmd_hash[cmd] = tmp.split("\"")[1]
+					clean_query << tmp.split("\"")[2..-1]
+				else
+					cmd_hash[cmd] = tmp.split(" ")[0]
+					clean_query << tmp.split(" ")[1..-1].join(" ")
+				end
+			elsif !q.empty?
+				clean_query << q
+			end
+			return cmd_hash, clean_query.join(" ")
 		end
 end
