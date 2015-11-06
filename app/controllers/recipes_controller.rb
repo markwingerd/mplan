@@ -14,20 +14,21 @@ class RecipesController < ApplicationController
 
 		search = Recipe.search do
 			if command_hash.has_key?("vegan")
-  				with(:vegan, true)
+  				with(:vegan, command_hash["vegan"] == "true")
   			end
 			if command_hash.has_key?("vegitarian")
-  				with(:vegitarian, true)
+  				with(:vegitarian, command_hash["vegitarian"] == "true")
   			end
 			if command_hash.has_key?("lactoseFree")
-  				with(:lactose_free, true)
+  				with(:lactose_free, command_hash["lactoseFree"] == "true")
   			end
 			if command_hash.has_key?("glutenFree")
-  				with(:gluten_free, true)
+  				with(:gluten_free, command_hash["glutenFree"] == "true")
   			end
 
 			fulltext query do
 				boost_fields :title => 2.0
+				boost_fields :ingredient => 1.0
 			end
 		end
 		@recipes = search.results
