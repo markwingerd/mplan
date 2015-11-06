@@ -62,3 +62,5 @@ Quantity.create(:recipe_id => 3, :amount => 1.5, :ingredient_id => 12)
 Quantity.create(:recipe_id => 3, :amount => 0.5, :ingredient_id => 5)
 Quantity.create(:recipe_id => 3, :amount => 0.5, :ingredient_id => 13)
 Quantity.create(:recipe_id => 3, :amount => 1, :ingredient_id => 1)
+
+Recipe.reindex
