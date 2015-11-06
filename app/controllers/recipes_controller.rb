@@ -4,11 +4,13 @@ class RecipesController < ApplicationController
 	 	query = params[:query]
 	 	command_hash = {}
 
-	 	vegan_hash, query = parse_command("vegan", query)
-	 	vegitarian_hash, query = parse_command("vegitarian", query)
-	 	lactose_hash, query = parse_command("lactoseFree", query)
-	 	gluten_hash, query = parse_command("glutenFree", query)
-		command_hash = [vegan_hash, vegitarian_hash, lactose_hash, gluten_hash].reduce &:merge
+	 	if query # Prevents a NoMethodError if params doesn't have :query
+		 	vegan_hash, query = parse_command("vegan", query)
+		 	vegitarian_hash, query = parse_command("vegitarian", query)
+		 	lactose_hash, query = parse_command("lactoseFree", query)
+		 	gluten_hash, query = parse_command("glutenFree", query)
+			command_hash = [vegan_hash, vegitarian_hash, lactose_hash, gluten_hash].reduce &:merge
+		end
 
 		search = Recipe.search do
 			if command_hash.has_key?("vegan")
