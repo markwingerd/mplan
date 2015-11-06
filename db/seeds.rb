@@ -7,18 +7,18 @@
 #   Mayor.create(name: "Emanuel", city: cities.first)
 User.create(:email => "asdf@asdf.com", :password => "asdfasdf", :password_confirmation => "asdfasdf")
 Property.create([{ :ingredient_id => 1, :vegan => false },	#1
-				 { :ingredient_id => 2, :vegan => true },	#2
-				 { :ingredient_id => 3, :vegan => true },	#3
-				 { :ingredient_id => 4, :vegan => true, :glutenFree => false },	#4
-				 { :ingredient_id => 5, :vegan => true },	#5
-				 { :ingredient_id => 6, :vegan => true },	#6
-				 { :ingredient_id => 7, :vegan => true },	#7
-				 { :ingredient_id => 8, :vegan => true },	#8
-				 { :ingredient_id => 9, :vegan => true },	#9
-				 { :ingredient_id => 10, :vegan => true, :glutenFree => false },	#10
+				 { :ingredient_id => 2, :vegan => true, :vegitarian => true },	#2
+				 { :ingredient_id => 3, :vegan => true, :vegitarian => true },	#3
+				 { :ingredient_id => 4, :vegan => true, :vegitarian => true, :glutenFree => false },	#4
+				 { :ingredient_id => 5, :vegan => true, :vegitarian => true },	#5
+				 { :ingredient_id => 6, :vegan => true, :vegitarian => true },	#6
+				 { :ingredient_id => 7, :vegan => true, :vegitarian => true },	#7
+				 { :ingredient_id => 8, :vegan => true, :vegitarian => true },	#8
+				 { :ingredient_id => 9, :vegan => true, :vegitarian => true },	#9
+				 { :ingredient_id => 10, :vegan => true, :vegitarian => true, :glutenFree => false },	#10
 				 { :ingredient_id => 11, :vegitarian => true, :glutenFree => false },	#11
 				 { :ingredient_id => 12, :vegitarian => true, :lactoseFree => false }, #12
-				 { :ingredient_id => 13, :vegan => true },	#13
+				 { :ingredient_id => 13, :vegan => true, :vegitarian => true },	#13
 				 { :recipe_id => 1, :vegan => false },	#14
 				 { :recipe_id => 2, :vegan => false },	#15
 				 { :recipe_id => 3, :lactoseFree => false, :glutenFree => false } #16
