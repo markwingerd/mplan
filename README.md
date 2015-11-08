@@ -5,6 +5,8 @@ Meal Planner is a rails based website which will provide several features for us
 - `bundle install`
 - `rake db:create db:migrate db:seed`
 - `rails server`
+- `rake sunspot:solr:start`
+- `rake sunspot:solr:reindex` note: this may need to be done in another console window.
 
 # Helpful Docs
 - guides.rubyonrails.org/getting_started.html

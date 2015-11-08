@@ -9,12 +9,27 @@
 </p>
 
 <p>
+  <strong>Properties:<br /></strong>
+  <% if @recipe.property.vegan %>
+    Vegan <br />
+  <% elsif @recipe.property.vegitarian %>
+    Vegitarian <br />
+  <% end %>
+  <% if @recipe.property.lactoseFree %>
+    Lactose Free <br />
+  <% end %>
+  <% if @recipe.property.glutenFree %>
+    Gluten Free <br />
+  <% end %>
+</p>
+
+<p>
   <strong>Instructions:</strong>
   <%= simple_format(@recipe.instructions) %>
 </p>
  
 <p>
-  <strong>Ingredients:</strong>
+  <strong>Ingredients:</strong><br />
   <% @recipe.quantities.each do |qty| %>
   	<%= qty.amount %>
   	<%= qty.ingredient.name %><br />

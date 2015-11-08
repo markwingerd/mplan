@@ -11,18 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004075130) do
+ActiveRecord::Schema.define(version: 20151027234806) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "vegitarian",      default: false
-    t.boolean  "vegan",           default: false
-    t.boolean  "lactoseFree",     default: true
-    t.boolean  "glutenFree",      default: true
     t.boolean  "buyInWholeUnits", default: true
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
+
+  create_table "properties", force: :cascade do |t|
+    t.integer  "recipe_id"
+    t.integer  "ingredient_id"
+    t.boolean  "vegitarian",    default: false
+    t.boolean  "vegan",         default: false
+    t.boolean  "lactoseFree",   default: true
+    t.boolean  "glutenFree",    default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "properties", ["ingredient_id"], name: "index_properties_on_ingredient_id"
+  add_index "properties", ["recipe_id"], name: "index_properties_on_recipe_id"
 
   create_table "quantities", force: :cascade do |t|
     t.decimal  "amount"

@@ -1,14 +1,38 @@
+<%= form_tag recipes_path, :method => 'get' do %>
+	<p>
+		<%= text_field_tag :query, params[:query] %>
+		<%= submit_tag "Search", :name => nil %>
+	</p>
+<% end %>
+
 <h1>Recipes</h1>
 <%= link_to "Add new recipe", new_recipe_path %>
-<table>
+<table border="1">
  	<tr>
  		<th>Title</th>
  		<th>Description</th>
+ 		<th>Lifestyles</th>
+ 		<th>Allergens</th>
  	</tr>
  	<% @recipes.each do |recipe| %>
  		<tr>
  			<td><%= link_to recipe.title, recipe_path(recipe) %></td>
  			<td><%= recipe.description %></td>
+ 			<td>
+ 				<% if recipe.property.vegan %>
+ 					Vegan 
+ 				<% elsif recipe.property.vegitarian %>
+ 					Vegitarian 
+ 				<% end %>
+ 			</td>
+ 			<td>
+ 				<% if recipe.property.lactoseFree %>
+ 					Lactose Free 
+ 				<% end %>
+ 				<% if recipe.property.glutenFree %>
+ 					Gluten Free 
+ 				<% end %>
+ 			</td>
  		</tr>
  	<% end %>
 </table>
