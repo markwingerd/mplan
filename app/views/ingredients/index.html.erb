@@ -1,32 +1,37 @@
-<%= form_for :ingredient, :url => update_multiple_ingredients_path, :html => { :method => :put } do |f| %>
-	<%= f.label :name %>
-	<table border="1">
-		<tr>
-			<th>Ingredient</th>
-			<th>Vegitarian</th>
-			<th>Vegan</th>
-			<th>Lactose Free</th>
-			<th>Gluten Free</th>
-			<th>Buy in whole units</th>
-		</tr>
-		<% @ingredients.each do |ingredient| %>
-		<tr>
-			<%# http://guides.rubyonrails.org/form_helpers.html#understanding-parameter-naming-conventions %>
-			<%= f.fields_for ingredient, index: ingredient.id do |i| %>
-				<td><%= ingredient.name %></td>
-				<td><%= i.check_box("[property_attributes]vegitarian", 
-						{checked: ingredient.property.vegitarian}) %></td>
-				<td><%= i.check_box("[property_attributes]vegan", 
-						{checked: ingredient.property.vegan}) %></td>
-				<td><%= i.check_box("[property_attributes]lactoseFree", 
-						{checked: ingredient.property.lactoseFree}) %></td>
-				<td><%= i.check_box("[property_attributes]glutenFree", 
-						{checked: ingredient.property.glutenFree}) %></td>
-				<td><%= i.check_box("buyInWholeUnits", 
-						{checked: ingredient.buyInWholeUnits}) %></td>
+<% if current_user.admin %>
+	<%= form_for :ingredient, :url => update_multiple_ingredients_path, :html => { :method => :put } do |f| %>
+		<%= f.label :name %>
+		<table border="1">
+			<tr>
+				<th>Ingredient</th>
+				<th>Vegitarian</th>
+				<th>Vegan</th>
+				<th>Lactose Free</th>
+				<th>Gluten Free</th>
+				<th>Buy in whole units</th>
+			</tr>
+			<% @ingredients.each do |ingredient| %>
+			<tr>
+				<%# http://guides.rubyonrails.org/form_helpers.html#understanding-parameter-naming-conventions %>
+				<%= f.fields_for ingredient, index: ingredient.id do |i| %>
+					<td><%= ingredient.name %></td>
+					<td><%= i.check_box("[property_attributes]vegitarian", 
+							{checked: ingredient.property.vegitarian}) %></td>
+					<td><%= i.check_box("[property_attributes]vegan", 
+							{checked: ingredient.property.vegan}) %></td>
+					<td><%= i.check_box("[property_attributes]lactoseFree", 
+							{checked: ingredient.property.lactoseFree}) %></td>
+					<td><%= i.check_box("[property_attributes]glutenFree", 
+							{checked: ingredient.property.glutenFree}) %></td>
+					<td><%= i.check_box("buyInWholeUnits", 
+							{checked: ingredient.buyInWholeUnits}) %></td>
+				<% end %>
+			</tr>
 			<% end %>
-		</tr>
-		<% end %>
-	</table>
-	<p><%= f.submit "Submit" %></p>
+		</table>
+		<p><%= f.submit "Submit" %></p>
+	<% end %>
+<% else %>
+ <%# raise ActionController::RoutingError.new('Not Found') %>
+ You are not an admin.
 <% end %>

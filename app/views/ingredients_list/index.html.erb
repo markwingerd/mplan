@@ -1,3 +1,8 @@
+<% if current_user.admin %>
+	<h2>User Status: Admin</h2>
+	<%= link_to "Ingredients", :controller => 'ingredients', :action => 'index' %>
+<% end %>
+
 <h1>Recipes Queued</h1>
 <% @user.queued_recipes.each do |qr| %>
 	<%= link_to qr.recipe.title, qr.recipe %> | 
