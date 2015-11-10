@@ -30,7 +30,12 @@
  
 <p>
   <strong>Ingredients:</strong><br />
+  <% list_name = "" %>
   <% @recipe.quantities.each do |qty| %>
+    <% if list_name != qty.listName %>
+      <h3><strong><%= qty.listName %></strong></h3>
+      <% list_name = qty.listName %>
+    <% end %>
   	<%= qty.amount %>
   	<%= qty.ingredient.name %><br />
   <% end %>

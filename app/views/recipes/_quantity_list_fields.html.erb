@@ -1,0 +1,19 @@
+<%= f.label :listName, "listName:" %>
+<%= f.text_field :listName %><br />
+<li class="control-group nested-fields">
+ 	<div class="controls">
+ 		<%= f.label :amount, "Amount:" %>
+ 		<%= f.text_field :amount %>
+
+ 		<%= f.collection_select :ingredient_id, Ingredient.order(:name),:id,:name, include_blank: true %>
+
+ 		<%# leave the following code, we may need this as a way to allow users to write in their own ingredients %>
+ 		<% if false %>
+	 		<%= f.fields_for :ingredient do |quantity_ingredient| %>
+	 			<%= quantity_ingredient.text_field :name %>
+	 		<% end %>
+ 		<% end %>
+
+ 		<%= link_to_remove_association "remove", f %>
+ 	</div>
+</li>
