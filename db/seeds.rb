@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: "Chicago" }, { name: "Copenhagen" }])
 #   Mayor.create(name: "Emanuel", city: cities.first)
-User.create(:email => "asdf@asdf.com", :password => "asdfasdf", :password_confirmation => "asdfasdf")
+User.create(:email => "asdf@asdf.com", :password => "asdfasdf", :password_confirmation => "asdfasdf", :admin => true)
 Property.create([{ :ingredient_id => 1, :vegan => false },	#1
 				 { :ingredient_id => 2, :vegan => true, :vegitarian => true },	#2
 				 { :ingredient_id => 3, :vegan => true, :vegitarian => true },	#3
