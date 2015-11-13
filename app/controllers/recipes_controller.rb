@@ -78,7 +78,7 @@ class RecipesController < ApplicationController
 
 	private
 		def recipe_params
-			params.require(:recipe).permit(:title, :description, :instructions, quantities_attributes: [:listName, :amount, :ingredient_id])
+			params.require(:recipe).permit(:title, :description, :instructions, quantities_attributes: [:listName, :amount, :ingredient_name])
 		end
 
 		def populate_quantity_list_name_fields(params)
