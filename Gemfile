@@ -37,6 +37,7 @@ group :development, :test do
 end
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 ###
 
 # Use ActiveModel has_secure_password

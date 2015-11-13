@@ -4,6 +4,11 @@ class IngredientsController < ApplicationController
 		@ingredients = Ingredient.all
 	end
 
+	def autocomplete
+		@ingredients = Ingredient.order(:name).where("name like ?", "%#{params[:term]}%")
+		render json: @ingredients.map(&:name)
+	end
+
 	def update_multiple
 		# Get ingredients from the database
 		ingredient_ids = params[:ingredient][:ingredient].keys

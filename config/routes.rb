@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     collection do
       put :update_multiple
     end
+    collection do
+      get 'autocomplete'
+    end
   end
 
   get 'landing/index'
