@@ -43,6 +43,8 @@ class RecipesController < ApplicationController
 	end
 
 	def create
+		#render plain: JSON.pretty_generate(params)
+		populate_quantity_list_name_fields(params)
 		@recipe = Recipe.new(recipe_params)
 		@recipe.property = Property.new
 
@@ -76,7 +78,18 @@ class RecipesController < ApplicationController
 
 	private
 		def recipe_params
-			params.require(:recipe).permit(:title, :description, :instructions, quantities_attributes: [:amount, :ingredient_id])
+			params.require(:recipe).permit(:title, :description, :instructions, quantities_attributes: [:listName, :amount, :ingredient_name])
+		end
+
+		def populate_quantity_list_name_fields(params)
+			list_name = ""
+			params[:recipe][:quantities_attributes].each do |key, quantity|
+				if quantity[:listName]
+					list_name = quantity[:listName]
+				else
+					params[:recipe][:quantities_attributes][key][:listName] = list_name
+				end
+			end
 		end
 
 		def parse_command(cmd, q)

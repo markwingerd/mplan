@@ -11,8 +11,10 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
-//= require turbolinks
+// require turbolinks
+//= require jquery.turbolinks
 //= require bootstrap
 //= require bootstrap.min
 //= require jquery.themepunch.tools.min

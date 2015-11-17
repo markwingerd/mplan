@@ -39,7 +39,6 @@ class IngredientsListController < ApplicationController
 			@all_ingredients << [ ["", ""], 
 								  [stocked_ingredients[ingredient], ingredient] ]
 		end
-		
 	end
 
 	def show
@@ -57,7 +56,7 @@ class IngredientsListController < ApplicationController
 
 	private
 		def user_params
-			params.require(:user).permit(quantities_attributes: [:id, :amount, :ingredient_id, :_destroy])
+			params.require(:user).permit(quantities_attributes: [:id, :amount, :ingredient_name, :_destroy])
 		end
 
 		# Takes an array of quantity records and returns a hash of string, quantity values
