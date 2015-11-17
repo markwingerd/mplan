@@ -3,8 +3,7 @@
  		<%= f.label :amount, "Amount:" %>
  		<%= f.text_field :amount %>
 
- 		<%# f.collection_select :ingredient_id, Ingredient.order(:name),:id,:name, include_blank: true %>
- 		<%= f.text_field :ingredient_name, data: {autocomplete_source: autocomplete_ingredients_path} %>
+ 		<%= f.text_field :ingredient_name, class: "ingredient_autocomplete" %>
 
  		<%# leave the following code, we may need this as a way to allow users to write in their own ingredients %>
  		<% if false %>

@@ -5,7 +5,7 @@
  		<%= f.label :amount, "Amount:" %>
  		<%= f.text_field :amount %>
 
- 		<%= f.text_field :ingredient_name %>
+ 		<%= f.text_field :ingredient_name, class: "ingredient_autocomplete" %>
 
  		<%# leave the following code, we may need this as a way to allow users to write in their own ingredients %>
  		<% if false %>
