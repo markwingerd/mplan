@@ -59,9 +59,12 @@ ActiveRecord::Schema.define(version: 20151027234806) do
     t.string   "title"
     t.text     "description"
     t.text     "instructions"
+    t.integer  "author_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  add_index "recipes", ["author_id"], name: "index_recipes_on_author_id"
 
   create_table "recipes_users", force: :cascade do |t|
     t.integer "recipe_id"
