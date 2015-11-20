@@ -36,9 +36,14 @@
       <h3><strong><%= qty.listName %></strong></h3>
       <% list_name = qty.listName %>
     <% end %>
-  	<%= qty.amount %>
-  	<%= qty.ingredient.name %><br />
+    <%= qty.amount %>
+    <%= qty.ingredient.name %><br />
   <% end %>
+</p>
+ 
+<p>
+  <strong>Author:</strong>
+  <%= @recipe.author.email %>
 </p>
 
 <% if user_signed_in? %>
