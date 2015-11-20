@@ -3,6 +3,11 @@
 	<%= link_to "Ingredients", :controller => 'ingredients', :action => 'index' %>
 <% end %>
 
+<h1>Recipes Authored</h1>
+<% @user.authored_recipes.each do |recipe| %>
+	<%= link_to recipe.title, recipe_path(recipe) %><br />
+<% end %>
+
 <h1>Recipes Queued</h1>
 <% @user.queued_recipes.each do |qr| %>
 	<%= link_to qr.recipe.title, qr.recipe %> | 
