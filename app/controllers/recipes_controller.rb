@@ -46,7 +46,7 @@ class RecipesController < ApplicationController
 		#render plain: JSON.pretty_generate(params)
 		populate_quantity_list_name_fields(params)
 		@recipe = Recipe.new(recipe_params)
-		@recipe.author_id = current_user.id
+		@recipe.author = current_user
 		@recipe.property = Property.new
 
 		if @recipe.save
