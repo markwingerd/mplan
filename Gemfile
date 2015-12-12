@@ -40,6 +40,7 @@ gem 'sunspot_solr'
 gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
 gem 'jquery-turbolinks'
 gem 'seed_dump' #https://github.com/rroblak/seed_dump
+gem "paperclip", "~> 4.3"
 ###
 
 # Use ActiveModel has_secure_password
