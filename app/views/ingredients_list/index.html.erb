@@ -3,33 +3,23 @@
 	<%= link_to "Ingredients", :controller => 'ingredients', :action => 'index' %>
 <% end %>
 
+<h1>Recipes Authored</h1>
+<% @user.authored_recipes.each do |recipe| %>
+	<%= link_to recipe.title, recipe_path(recipe) %><br />
+<% end %>
+
 <h1>Recipes Queued</h1>
+<%= link_to 'Print', { :action => 'print', :all_recipes => 'true' } %><br />
 <% @user.queued_recipes.each do |qr| %>
-	<%= link_to qr.recipe.title, qr.recipe %> | 
+	<%= link_to qr.recipe.title, qr.recipe %> <span>|</span> <!-- hotfix for printing --> 
 	<%= link_to "remove",  queued_recipe_path(qr), :method => :delete %><br />
 <% end %>
 <br />
 
-<table border=1>
-	<tr>
-		<th>Grocery List</th>
-		<th>Items on hand</th>
-	</tr>
-	<% @all_ingredients.each do |needed, stocked| %>
-		<tr>
-			<td>
-				<% if stocked[0].to_f >= needed[0].to_f %><strike><% end %>
-				<%= needed[0] %>
-				<%= needed[1] %>
-				<% if stocked[0].to_f >= needed[0].to_f %></strike><% end %>
-			</td>
-			<td>
-				<%= stocked[0] %>
-				<%= stocked[1] %>
-			</td>
-		</tr>
-	<% end %>
-</table>
+<%= link_to 'Print', { :action => 'print', :table_ingredients => 'true' } %>
+<div class="printable">
+	<%= render :partial => 'table_ingredients' %>
+</div>
 <br />
 
 <%= form_for @user, url: ingredients_list_path(current_user) do |f| %>

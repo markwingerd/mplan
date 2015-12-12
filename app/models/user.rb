@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :quantities
   has_many :ingredients,
            :through => :quantities
+  has_many :authored_recipes, :class_name => 'Recipe', foreign_key: 'author_id'
 
   accepts_nested_attributes_for :quantities,
            :reject_if => :all_blank,

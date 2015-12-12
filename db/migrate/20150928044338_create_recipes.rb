@@ -4,6 +4,7 @@ class CreateRecipes < ActiveRecord::Migration
     	t.string :title
     	t.text :description
     	t.text :instructions
+    	t.references :author, index: true
 
       t.timestamps null: false
     end

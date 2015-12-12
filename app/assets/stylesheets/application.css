@@ -18,6 +18,7 @@
  *= require style
  *= require settings
  *= require animate.min
+ *= require print
  *= require_tree .
  *= require_self
  */

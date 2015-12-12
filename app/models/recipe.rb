@@ -10,6 +10,7 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients,
            :through => :quantities
 
+  belongs_to :author, :class_name => 'User'
   has_one :property
 
   accepts_nested_attributes_for :quantities,

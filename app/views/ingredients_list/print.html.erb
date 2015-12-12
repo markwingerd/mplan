@@ -1,0 +1,10 @@
+<%= link_to 'Print this Page', 'javascript:print()' %><br />
+<% if params[:table_ingredients] %>
+	<%= render :partial => 'table_ingredients' %>
+<% end %>
+<% if params[:all_recipes] %>
+	<% @all_recipes.each do |recipe| %>
+		<%= render "recipes/recipe", :@recipe => recipe %><hr />
+		<div class="page-break"></div>
+	<% end %>
+<% end %>

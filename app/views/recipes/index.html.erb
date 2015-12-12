@@ -13,6 +13,7 @@
  		<th>Description</th>
  		<th>Lifestyles</th>
  		<th>Allergens</th>
+ 		<th>Author</th>
  	</tr>
  	<% @recipes.each do |recipe| %>
  		<tr>
@@ -31,6 +32,11 @@
  				<% end %>
  				<% if recipe.property.glutenFree %>
  					Gluten Free 
+ 				<% end %>
+ 			</td>
+ 			<td>
+ 				<% if recipe.author %>
+ 					<%= recipe.author.email %>
  				<% end %>
  			</td>
  		</tr>

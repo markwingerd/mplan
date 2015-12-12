@@ -1,66 +1,117 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: "Chicago" }, { name: "Copenhagen" }])
-#   Mayor.create(name: "Emanuel", city: cities.first)
-User.create(:email => "asdf@asdf.com", :password => "asdfasdf", :password_confirmation => "asdfasdf", :admin => true)
-Property.create([{ :ingredient_id => 1, :vegan => false },	#1
-				 { :ingredient_id => 2, :vegan => true, :vegitarian => true },	#2
-				 { :ingredient_id => 3, :vegan => true, :vegitarian => true },	#3
-				 { :ingredient_id => 4, :vegan => true, :vegitarian => true, :glutenFree => false },	#4
-				 { :ingredient_id => 5, :vegan => true, :vegitarian => true },	#5
-				 { :ingredient_id => 6, :vegan => true, :vegitarian => true },	#6
-				 { :ingredient_id => 7, :vegan => true, :vegitarian => true },	#7
-				 { :ingredient_id => 8, :vegan => true, :vegitarian => true },	#8
-				 { :ingredient_id => 9, :vegan => true, :vegitarian => true },	#9
-				 { :ingredient_id => 10, :vegan => true, :vegitarian => true, :glutenFree => false },	#10
-				 { :ingredient_id => 11, :vegitarian => true, :glutenFree => false },	#11
-				 { :ingredient_id => 12, :vegitarian => true, :lactoseFree => false }, #12
-				 { :ingredient_id => 13, :vegan => true, :vegitarian => true },	#13
-				 { :recipe_id => 1, :vegan => false },	#14
-				 { :recipe_id => 2, :vegan => false },	#15
-				 { :recipe_id => 3, :lactoseFree => false, :glutenFree => false } #16
-				])
-Ingredient.create([{ name: "Chicken" }, #1
-				   { name: "Salt", buyInWholeUnits: false }, #2
-				   { name: "Pepper", buyInWholeUnits: false }, #3
-				   { name: "Whole-wheat seaseme buns" }, #4
-				   { name: "Red Onion" }, #5
-				   { name: "Red Peppers" }, #6
-				   { name: "Chimichurri", buyInWholeUnits: false }, #7
-				   { name: "Lemon" }, #8
-				   { name: "Olive Oil", buyInWholeUnits: false }, #9
-				   { name: "Pizza Crust" }, #10
-				   { name: "Barbeque Sauce", buyInWholeUnits: false }, #11
-				   { name: "Smoked Gouda" }, #12
-				   { name: "Jalapeno Pepper"} #13
-				  ])
-Quantity.create(:user_id => 1, :amount => 1, :ingredient_id => 1)
-Quantity.create(:user_id => 1, :amount => 4, :ingredient_id => 2)
-Quantity.create(:user_id => 1, :amount => 4, :ingredient_id => 3)
-Quantity.create(:user_id => 1, :amount => 2, :ingredient_id => 5)
-Quantity.create(:user_id => 1, :amount => 1, :ingredient_id => 9)
-Recipe.create(:title => "Grilled Chicken Sandwich", :description => "Sandwich with chimichurri and grilled chicken", :instructions => "Season the chicken all over with salt and pepper. Grill for 3 to 4 minutes per side, until firm and cooked through.\n\nTop each bun with a chicken thigh, then pile on the onion and peppers. Spoon on the chimichurri.")
-Quantity.create(:recipe_id => 1, :amount => 4, :ingredient_id => 1)
-Quantity.create(:recipe_id => 1, :amount => 1, :ingredient_id => 2)
-Quantity.create(:recipe_id => 1, :amount => 1, :ingredient_id => 3)
-Quantity.create(:recipe_id => 1, :amount => 0.5, :ingredient_id => 5)
-Quantity.create(:recipe_id => 1, :amount => 0.5, :ingredient_id => 6)
-Quantity.create(:recipe_id => 1, :amount => 0.5, :ingredient_id => 7)
-Recipe.create(:title => "Chicken Under a Brick", :description => "Bricks ontop of chicken", :instructions => "Combine the olive oil, lemon zest and juice, salt, and pepper into a large bowl. Add the chicken and turn to coat. Cover the bowl and marinate in the regriderator for at least 30 minutes and up to 4 hours.\n\nPrehead a grill. Remove the chicken from the marinade and place on the grate. Cover the grill and good for 10 minutes until the chicken is lightly charred. Flip the chicken over, then place a brick on top and cook for another 15 to 20 minutes until the skin is throroughly browned and crisp.\n\nSeperate each breast from the chicken.")
-Quantity.create(:recipe_id => 2, :amount => 0.25, :ingredient_id => 9, :listName => 'Marinade')
-Quantity.create(:recipe_id => 2, :amount => 2, :ingredient_id => 8, :listName => 'Marinade')
-Quantity.create(:recipe_id => 2, :amount => 1, :ingredient_id => 2, :listName => 'Marinade')
-Quantity.create(:recipe_id => 2, :amount => 0.5, :ingredient_id => 3, :listName => 'Marinade')
-Quantity.create(:recipe_id => 2, :amount => 1, :ingredient_id => 1, :listName => 'Meat')
-Recipe.create(:title => "Barbecue Chicken Pizza", :description => "Pizza with barbeque", :instructions => "Preheat oven to 500f. Place Pizza stone in the oven.\n\nSpread crust with a thin layer of BBQ sauce, then devide the gouda, onion, jalapeno, and chicken between the two.\n\nCook until the crust is golden and the cheese is fully melted.")
-Quantity.create(:recipe_id => 3, :amount => 1, :ingredient_id => 10)
-Quantity.create(:recipe_id => 3, :amount => 0.75, :ingredient_id => 11)
-Quantity.create(:recipe_id => 3, :amount => 1.5, :ingredient_id => 12)
-Quantity.create(:recipe_id => 3, :amount => 0.5, :ingredient_id => 5)
-Quantity.create(:recipe_id => 3, :amount => 0.5, :ingredient_id => 13)
-Quantity.create(:recipe_id => 3, :amount => 1, :ingredient_id => 1)
-
-Recipe.reindex
+User.create!([
+  {email: "asdf@asdf.com", :password => "asdfasdf", :password_confirmation => "asdfasdf", :admin => true}
+])
+Ingredient.create!([
+  {name: "Chicken", buyInWholeUnits: true},
+  {name: "Salt", buyInWholeUnits: false},
+  {name: "Pepper", buyInWholeUnits: false},
+  {name: "Whole-wheat seaseme buns", buyInWholeUnits: true},
+  {name: "Red Onion", buyInWholeUnits: true},
+  {name: "Red Peppers", buyInWholeUnits: true},
+  {name: "Chimichurri", buyInWholeUnits: false},
+  {name: "Lemon", buyInWholeUnits: true},
+  {name: "Olive Oil", buyInWholeUnits: false},
+  {name: "Pizza Crust", buyInWholeUnits: true},
+  {name: "Barbeque Sauce", buyInWholeUnits: false},
+  {name: "Smoked Gouda", buyInWholeUnits: true},
+  {name: "Jalapeno Pepper", buyInWholeUnits: true},
+  {name: "Kidney Beans", buyInWholeUnits: false},
+  {name: "Cumin", buyInWholeUnits: true},
+  {name: "Lime", buyInWholeUnits: true},
+  {name: "Salsa Verde", buyInWholeUnits: true},
+  {name: "Pepper Jack Cheese", buyInWholeUnits: true},
+  {name: "Cilantro", buyInWholeUnits: false},
+  {name: "Tomato", buyInWholeUnits: true},
+  {name: "Green Bell Pepper", buyInWholeUnits: true},
+  {name: "English Cucumber", buyInWholeUnits: true},
+  {name: "Tomato Juice", buyInWholeUnits: true},
+  {name: "Red Wine Vinegar", buyInWholeUnits: true},
+  {name: "Garlic", buyInWholeUnits: true}
+])
+Property.create!([
+  {recipe_id: nil, ingredient_id: 1, vegitarian: false, vegan: false, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 2, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 3, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 4, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: false},
+  {recipe_id: nil, ingredient_id: 5, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 6, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 7, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 8, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 9, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 10, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: false},
+  {recipe_id: nil, ingredient_id: 11, vegitarian: true, vegan: false, lactoseFree: true, glutenFree: false},
+  {recipe_id: nil, ingredient_id: 12, vegitarian: true, vegan: false, lactoseFree: false, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 13, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: 1, ingredient_id: nil, vegitarian: false, vegan: false, lactoseFree: true, glutenFree: true},
+  {recipe_id: 2, ingredient_id: nil, vegitarian: false, vegan: false, lactoseFree: true, glutenFree: true},
+  {recipe_id: 3, ingredient_id: nil, vegitarian: false, vegan: false, lactoseFree: false, glutenFree: false},
+  {recipe_id: nil, ingredient_id: 14, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 15, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 16, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 17, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 18, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 19, vegitarian: true, vegan: false, lactoseFree: false, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 20, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: 4, ingredient_id: nil, vegitarian: false, vegan: false, lactoseFree: false, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 21, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 22, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 23, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 24, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 25, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 26, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 27, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 28, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
+  {recipe_id: 5, ingredient_id: nil, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true}
+])
+Quantity.create!([
+  {amount: "1.0", listName: nil, recipe_id: nil, user_id: 1, ingredient_id: 1},
+  {amount: "4.0", listName: nil, recipe_id: nil, user_id: 1, ingredient_id: 2},
+  {amount: "4.0", listName: nil, recipe_id: nil, user_id: 1, ingredient_id: 3},
+  {amount: "2.0", listName: nil, recipe_id: nil, user_id: 1, ingredient_id: 5},
+  {amount: "1.0", listName: nil, recipe_id: nil, user_id: 1, ingredient_id: 9},
+  {amount: "4.0", listName: nil, recipe_id: 1, user_id: nil, ingredient_id: 1},
+  {amount: "1.0", listName: nil, recipe_id: 1, user_id: nil, ingredient_id: 2},
+  {amount: "1.0", listName: nil, recipe_id: 1, user_id: nil, ingredient_id: 3},
+  {amount: "0.5", listName: nil, recipe_id: 1, user_id: nil, ingredient_id: 5},
+  {amount: "0.5", listName: nil, recipe_id: 1, user_id: nil, ingredient_id: 6},
+  {amount: "0.5", listName: nil, recipe_id: 1, user_id: nil, ingredient_id: 7},
+  {amount: "0.25", listName: "Marinade", recipe_id: 2, user_id: nil, ingredient_id: 9},
+  {amount: "2.0", listName: "Marinade", recipe_id: 2, user_id: nil, ingredient_id: 8},
+  {amount: "1.0", listName: "Marinade", recipe_id: 2, user_id: nil, ingredient_id: 2},
+  {amount: "0.5", listName: "Marinade", recipe_id: 2, user_id: nil, ingredient_id: 3},
+  {amount: "1.0", listName: "Meat", recipe_id: 2, user_id: nil, ingredient_id: 1},
+  {amount: "1.0", listName: nil, recipe_id: 3, user_id: nil, ingredient_id: 10},
+  {amount: "0.75", listName: nil, recipe_id: 3, user_id: nil, ingredient_id: 11},
+  {amount: "1.5", listName: nil, recipe_id: 3, user_id: nil, ingredient_id: 12},
+  {amount: "0.5", listName: nil, recipe_id: 3, user_id: nil, ingredient_id: 5},
+  {amount: "0.5", listName: nil, recipe_id: 3, user_id: nil, ingredient_id: 13},
+  {amount: "1.0", listName: nil, recipe_id: 3, user_id: nil, ingredient_id: 1},
+  {amount: "8.0", listName: "The beans", recipe_id: 4, user_id: nil, ingredient_id: 14},
+  {amount: "0.25", listName: "The beans", recipe_id: 4, user_id: nil, ingredient_id: 15},
+  {amount: "1.0", listName: "The beans", recipe_id: 4, user_id: nil, ingredient_id: 16},
+  {amount: "0.1", listName: "The beans", recipe_id: 4, user_id: nil, ingredient_id: 2},
+  {amount: "0.1", listName: "The beans", recipe_id: 4, user_id: nil, ingredient_id: 3},
+  {amount: "1.5", listName: "The Chicken", recipe_id: 4, user_id: nil, ingredient_id: 1},
+  {amount: "0.1", listName: "The Chicken", recipe_id: 4, user_id: nil, ingredient_id: 2},
+  {amount: "0.1", listName: "The Chicken", recipe_id: 4, user_id: nil, ingredient_id: 3},
+  {amount: "8.0", listName: "The Chicken", recipe_id: 4, user_id: nil, ingredient_id: 18},
+  {amount: "8.0", listName: "The Chicken", recipe_id: 4, user_id: nil, ingredient_id: 19},
+  {amount: "2.0", listName: "The Chicken", recipe_id: 4, user_id: nil, ingredient_id: 20},
+  {amount: "2.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 21},
+  {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 22},
+  {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 5},
+  {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 24},
+  {amount: "1.5", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 25},
+  {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 8},
+  {amount: "2.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 9},
+  {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 27},
+  {amount: "2.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 28},
+  {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 2}
+])
+Recipe.create!([
+  {title: "Grilled Chicken Sandwich", description: "Sandwich with chimichurri and grilled chicken", instructions: "Season the chicken all over with salt and pepper. Grill for 3 to 4 minutes per side, until firm and cooked through.\n\nTop each bun with a chicken thigh, then pile on the onion and peppers. Spoon on the chimichurri.", author_id: 1},
+  {title: "Chicken Under a Brick", description: "Bricks ontop of chicken", instructions: "Combine the olive oil, lemon zest and juice, salt, and pepper into a large bowl. Add the chicken and turn to coat. Cover the bowl and marinate in the regriderator for at least 30 minutes and up to 4 hours.\n\nPrehead a grill. Remove the chicken from the marinade and place on the grate. Cover the grill and good for 10 minutes until the chicken is lightly charred. Flip the chicken over, then place a brick on top and cook for another 15 to 20 minutes until the skin is throroughly browned and crisp.\n\nSeperate each breast from the chicken.", author_id: 1},
+  {title: "Barbecue Chicken Pizza", description: "Pizza with barbeque", instructions: "Preheat oven to 500f. Place Pizza stone in the oven.\n\nSpread crust with a thin layer of BBQ sauce, then devide the gouda, onion, jalapeno, and chicken between the two.\n\nCook until the crust is golden and the cheese is fully melted.", author_id: 1},
+  {title: "Margarita Chicken", description: "Tasty chicken topped with kidney beans and cheese.", instructions: "Preheat the over to 450F. Combine the kidney beans and cumin in a saucepan and heat all the way through. Squeeze in the lime juice and adjust the seasoning with salt and pepper. Remove from head, but warm before serving.\r\n\r\nHeat the oil in a large skillet over medium-high head. Season the chicken all over with salt and pepper and sear in the hot pan for 3 to 4 minutes on the first side, until a nice crust develops, then flip. Cook for another 3 to 4 minutes, then spoon the salsa over the meat, top with the cheese, and place in the over. Bake until the chicken is cooked through and the cheese is fully melted and bubbling, no more than 5 minutes. Divide the beans among 4 plates, top with the chicken, and garnish with cilantro.", author_id: 1},
+  {title: "Gazpacho", description: "Cold tomato soup.", instructions: "Combine the tomatoes, bell pepper, onion, and cucumber in a large mixing bowl and mix well. Transfer 1/4 of the mixture to a small bowl, cover, and refrigerate. Add the tomato juice, lemonjuice, olive oil, vinegar, garlic, and salt to the vegetables in the large bowl and mix to combine. If you have the time, it's bes at this point to allow the ingredients to mingle in the fridge for an hour or two -- or even overnight. (If not, simply proceed with the recipe.)\r\n\r\nWorking in batches if necessary, add the tomato juice mixture to a blender and puree, stopping just short of create a smooth soup (a bit of texture here is nice). If you didn't refridgerate before, place the gazpacho in the fridge for 20 or 30 minutes to cool down.\r\n\r\nWhen read to serve, divide the gazpacho among 4 to 6 bowls, Chop the reserved begetables on a cutting board until you have a rough calsa. Garnish each bowl with a bit of the reserved vegetables and a drizzle of olive oil.", author_id: 1}
+])
