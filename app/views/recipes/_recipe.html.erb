@@ -1,0 +1,47 @@
+<p>
+  <strong>Title:</strong>
+  <%= @recipe.title %>
+</p>
+ 
+<p>
+  <strong>Description:</strong>
+  <%= @recipe.description %>
+</p>
+
+<p>
+  <strong>Properties:<br /></strong>
+  <% if @recipe.property.vegan %>
+    Vegan <br />
+  <% elsif @recipe.property.vegitarian %>
+    Vegitarian <br />
+  <% end %>
+  <% if @recipe.property.lactoseFree %>
+    Lactose Free <br />
+  <% end %>
+  <% if @recipe.property.glutenFree %>
+    Gluten Free <br />
+  <% end %>
+</p>
+
+<p>
+  <strong>Instructions:</strong>
+  <%= simple_format(@recipe.instructions) %>
+</p>
+ 
+<p>
+  <strong>Ingredients:</strong><br />
+  <% list_name = "" %>
+  <% @recipe.quantities.each do |qty| %>
+    <% if list_name != qty.listName %>
+      <h3><strong><%= qty.listName %></strong></h3>
+      <% list_name = qty.listName %>
+    <% end %>
+    <%= qty.amount %>
+    <%= qty.ingredient.name %><br />
+  <% end %>
+</p>
+ 
+<p>
+  <strong>Author:</strong>
+  <%= @recipe.author.email %>
+</p>

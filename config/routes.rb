@@ -2,9 +2,15 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations" }
 
   resources :recipes
-  resources :ingredients_list
+
+  resources :ingredients_list do
+    collection do
+      get 'print' => 'ingredients_list#print'
+    end
+  end
+
   resources :queued_recipes
-  #resources :ingredients, :collection => { :update_multiple => :put }
+  
   resources :ingredients do
     collection do
       put :update_multiple
