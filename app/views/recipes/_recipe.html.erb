@@ -1,3 +1,6 @@
+<% @recipe.assets.each do |asset| %>
+  <%= image_tag asset.image.url(:thumb) %>
+<% end %>
 <p>
   <strong>Title:</strong>
   <%= @recipe.title %>

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations" }
 
-  resources :recipes
+  resources :recipes do
+    resources :assets
+  end
 
   resources :ingredients_list do
     collection do

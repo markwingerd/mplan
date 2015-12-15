@@ -13,6 +13,8 @@ class Recipe < ActiveRecord::Base
            :reject_if => :all_blank,
            :allow_destroy => true
   accepts_nested_attributes_for :ingredients
+  accepts_nested_attributes_for :assets,
+            :allow_destroy => true
 
   searchable do
 

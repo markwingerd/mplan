@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20151212075025) do
 
   create_table "assets", force: :cascade do |t|
+    t.integer  "recipe_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
