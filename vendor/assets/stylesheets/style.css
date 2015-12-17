@@ -1101,7 +1101,7 @@ strong{
 .shop-items .item{
    position:relative;
 	max-height: 320px;
-	max-width: 250px;
+	/*max-width: 250px;*/
 	margin: 10px auto;
 	padding: 20px 10px 10px 10px;
    background:#fff;
@@ -1122,9 +1122,43 @@ strong{
 }
 
 .shop-items .item-icon span{
-   width:35px;
+   /*width:35px;*/
+   padding-left: 5px;
+   padding-right: 5px;
    height:20px;
    background:#16cbe6;
+   display:inline-block;
+   color:#fff;
+   text-align:center;
+   font-size:10px;
+   font-weight:bold;
+   line-height:18px;
+   border-radius:5px;
+}
+
+.shop-items .lifestyle span{
+   width:100px;
+   background:#5cb85c;
+   border-color:#4cae4c;
+   padding-left: 5px;
+   padding-right: 5px;
+   height:20px;
+   display:inline-block;
+   color:#fff;
+   text-align:center;
+   font-size:10px;
+   font-weight:bold;
+   line-height:18px;
+   border-radius:5px;
+}
+
+.shop-items .allergen span{
+   width:100px;
+   background:#f0ad4e;
+   border-color:#eea236;
+   padding-left: 5px;
+   padding-right: 5px;
+   height:20px;
    display:inline-block;
    color:#fff;
    text-align:center;
@@ -1143,11 +1177,11 @@ strong{
 	height: 140px;
 	width: auto;
 	display: block;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 }
 
 .shop-items .item-details h5{
-	text-align: center;
+	/*text-align: center;*/
    font-weight:bold;
    font-size:16px;
    line-height:25px;
@@ -1167,11 +1201,17 @@ strong{
 }
 
 .shop-items .item-details p{
-	text-align: center;
+  /*text-align: center;*/
    margin-bottom:10px;
    color:#888;
    font-size:13px;
    line-height:20px;
+}
+
+.shop-items .item-details .line-limit-4{
+    height:7em;
+    overflow:hidden;
+    text-overflow:ellipsis; 
 }
 
 .shop-items .item-price{

@@ -1,6 +1,22 @@
 User.create!([
   {email: "asdf@asdf.com", :password => "asdfasdf", :password_confirmation => "asdfasdf", :admin => true}
 ])
+# Asset.create!([
+#   {recipe_id: 1, image_file_name: "no_image_available.jpg", image_content_type: "image/jpeg", image_file_size: 7560, image_updated_at: "2015-12-15 08:46:39"},
+#   {recipe_id: 2, image_file_name: "no_image_available.jpg", image_content_type: "image/jpeg", image_file_size: 7560, image_updated_at: "2015-12-15 08:46:39"},
+#   {recipe_id: 3, image_file_name: "no_image_available.jpg", image_content_type: "image/jpeg", image_file_size: 7560, image_updated_at: "2015-12-15 08:46:39"},
+#   {recipe_id: 4, image_file_name: "no_image_available.jpg", image_content_type: "image/jpeg", image_file_size: 7560, image_updated_at: "2015-12-15 08:46:40"},
+#   {recipe_id: 5, image_file_name: "no_image_available.jpg", image_content_type: "image/jpeg", image_file_size: 7560, image_updated_at: "2015-12-15 08:46:40"},
+#   {recipe_id: 6, image_file_name: "no_image_available.jpg", image_content_type: "image/jpeg", image_file_size: 7560, image_updated_at: "2015-12-15 08:46:40"}
+# ])
+Asset.create!([
+  {recipe_id: 1, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
+  {recipe_id: 2, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
+  {recipe_id: 3, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
+  {recipe_id: 4, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
+  {recipe_id: 5, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
+  {recipe_id: 6, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")}
+])
 Ingredient.create!([
   {name: "Chicken", buyInWholeUnits: true},
   {name: "Salt", buyInWholeUnits: false},
@@ -61,7 +77,7 @@ Property.create!([
   {recipe_id: nil, ingredient_id: 26, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
   {recipe_id: nil, ingredient_id: 27, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
   {recipe_id: nil, ingredient_id: 28, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
-  {recipe_id: 5, ingredient_id: nil, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true}
+  {recipe_id: 5, ingredient_id: nil, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
 ])
 Quantity.create!([
   {amount: "1.0", listName: nil, recipe_id: nil, user_id: 1, ingredient_id: 1},
@@ -104,8 +120,8 @@ Quantity.create!([
   {amount: "1.5", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 25},
   {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 8},
   {amount: "2.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 9},
-  {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 27},
-  {amount: "2.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 28},
+  {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 25},
+  {amount: "2.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 25},
   {amount: "1.0", listName: "", recipe_id: 5, user_id: nil, ingredient_id: 2}
 ])
 Recipe.create!([
