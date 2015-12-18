@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Recipe Properties -->
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-sm-9">
         <% if @recipe.property.vegan %>
           <div class="lifestyle col-sm-3"><span>Vegan</span></div>
         <% elsif @recipe.property.vegitarian %>
@@ -18,12 +18,12 @@
     </div>
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <!-- Sidebar 1 -->
         <div class="sidebar">
           <!-- Widget -->
           <div class="widget">
-            <%= image_tag @recipe.assets.first.image.url(:medium), :class => "img-responsive" %>
+            <%= image_tag @recipe.assets.first.image.url(:medium), :class => "img-responsive recipe-image" %>
           </div>
           <div class="widget">
             <% list_name = @recipe.quantities.first.listName %>
@@ -48,7 +48,7 @@
         </div>
       </div>
 
-      <div class="col-md-5">
+      <div class="col-sm-5">
         <div class="posts">
           <div class="entry">
             <h2><%= @recipe.title %></h2>
@@ -74,7 +74,7 @@
         </div>
       </div>                        
 
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <%# This space can be used for something %>                                              
       </div>
     </div>
