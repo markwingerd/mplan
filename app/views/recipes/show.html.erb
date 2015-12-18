@@ -1,8 +1,14 @@
-<%= render :partial => 'recipe' %>
-<% if user_signed_in? %>
-  <%= link_to 'Queue Recipe', {:controller => 'queued_recipes',
-                           :action => 'create',
-                           :recipe_id => @recipe.id,
-                           :user_id => current_user.id},
-                           :method => 'post' %>
-<% end %>
+<div class="container">
+		<% if user_signed_in? %>
+			<div class="pull-right">
+			  <%= link_to 'Add to Queue', 
+			  		{ :controller => 'queued_recipes',
+			        :action => 'create',
+	            :recipe_id => @recipe.id,
+	            :user_id => current_user.id},
+	          :method => 'post', 
+	          :class => "btn btn-danger btn-sm" %>
+      </div>
+		<% end %>
+	<%= render :partial => 'recipe' %>
+</div>
