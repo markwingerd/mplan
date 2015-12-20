@@ -14,6 +14,20 @@
 					<%= f.label :instructions, "Instructions for this recipe", class: "control-label" %>
 					<div class="controls"><%= f.text_area :instructions, rows: 10 %></div>
 				</li>
+				<li class="control-group">
+					<%= f.label :image  %>
+				</li>
+				<ul>
+					<%= f.fields_for :assets, Asset.new do |asset| %>
+						<%= render 'asset_fields', :f => asset %>
+						<span id="insertion">
+							<%# partials render here %>
+						</span>
+
+						<%= link_to_add_association 'Add another image', f, :assets, 'data-association-insertion-node' => "#insertion" %>
+
+					<% end %>
+				</ul
 			</ol>
 		</fieldset>
 

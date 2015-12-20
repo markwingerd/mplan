@@ -1,14 +1,10 @@
 class Recipe < ActiveRecord::Base
-  # attr_accessible :title,
-  #                 :description,
-  #                 :instructions,
-  #                 :quantities_attributes
-
   has_many :queued_recipes
   has_many :users, :through => :queued_recipes
   has_many :quantities
   has_many :ingredients,
            :through => :quantities
+  has_many :assets
 
   belongs_to :author, :class_name => 'User'
   has_one :property
@@ -17,6 +13,8 @@ class Recipe < ActiveRecord::Base
            :reject_if => :all_blank,
            :allow_destroy => true
   accepts_nested_attributes_for :ingredients
+  accepts_nested_attributes_for :assets,
+            :allow_destroy => true
 
   searchable do
 

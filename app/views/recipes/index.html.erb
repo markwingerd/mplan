@@ -1,44 +1,86 @@
-<%= form_tag recipes_path, :method => 'get' do %>
-	<p>
-		<%= text_field_tag :query, params[:query] %>
-		<%= submit_tag "Search", :name => nil %>
-	</p>
-<% end %>
+<div class="shop-items">
+	<div class="container">
+	  <div class="row">
+			<div class="col-md-9 col-md-push-3"><%# whats this do %>
+				<%= form_tag recipes_path, :method => 'get' do %>
+					<p>
+						<%= text_field_tag :query, params[:query] %>
+						<%= submit_tag "Search", :name => nil %>
+					</p>
+				<% end %>
 
-<h1>Recipes</h1>
-<%= link_to "Add new recipe", new_recipe_path %>
-<table border="1">
- 	<tr>
- 		<th>Title</th>
- 		<th>Description</th>
- 		<th>Lifestyles</th>
- 		<th>Allergens</th>
- 		<th>Author</th>
- 	</tr>
- 	<% @recipes.each do |recipe| %>
- 		<tr>
- 			<td><%= link_to recipe.title, recipe_path(recipe) %></td>
- 			<td><%= recipe.description %></td>
- 			<td>
- 				<% if recipe.property.vegan %>
- 					Vegan 
- 				<% elsif recipe.property.vegitarian %>
- 					Vegitarian 
- 				<% end %>
- 			</td>
- 			<td>
- 				<% if recipe.property.lactoseFree %>
- 					Lactose Free 
- 				<% end %>
- 				<% if recipe.property.glutenFree %>
- 					Gluten Free 
- 				<% end %>
- 			</td>
- 			<td>
- 				<% if recipe.author %>
- 					<%= recipe.author.email %>
- 				<% end %>
- 			</td>
- 		</tr>
- 	<% end %>
-</table>
+				<h1>Recipes</h1>
+				<% if user_signed_in? %>
+					<%= link_to "Add new recipe", new_recipe_path %>
+				<% end %>
+
+				<!-- Breadcrumb
+				<ul class="breadcrumb">
+					<li><a href="index-2.html">Home</a> <span class="divider"></span></li>
+					<li><a href="items.html">Smartphone</a> <span class="divider"></span></li>
+					<li class="active">Apple</li>
+				</ul>-->
+
+				<% @recipes.each_with_index do |recipe, index| %>
+				      <div class="item">
+				        <!-- Use the below link to put HOT icon -->
+				        <div class="row">
+					        <% if recipe.property.vegan %>
+					        	<div class="lifestyle col-sm-2"><span>Vegan</span></div>
+					        <% elsif recipe.property.vegitarian %>
+					        	<div class="lifestyle col-sm-2"><span>Vegitarian</span></div>
+					        <% end %>
+					        <% if recipe.property.glutenFree %>
+					        	<div class="allergen col-sm-2"><span>Gluten Free</span></div>
+					        <% end %>
+					        <% if recipe.property.lactoseFree %>
+					        	<div class="allergen col-sm-2"><span>Lactose Free</span></div>
+					        <% end %>
+					      </div>
+				        <!-- Item image -->
+				        <div class="row">
+				        	<div class="col-xs-3">
+						        <div class="item-image">
+						          <%= link_to image_tag(recipe.assets.first.image.url(:thumb), :class => 'img-responsive'), recipe %></a>
+						        </div>
+						      </div>
+						      <div class="col-xs-9">
+					        	<!-- Item details -->
+						        <div class="item-details">
+						          <!-- Name -->
+						          <h5><%= link_to recipe.title, recipe %></a></h5>
+						          <div class="clearfix"></div>
+						          <!-- Para. Note more than 2 lines. -->
+						          <p class="line-limit-4"><%= recipe.description %></p>
+						        </div>
+					      	</div>
+					      </div>
+
+				          <hr />
+				          <div class="pull-left"><a href="#" class="btn btn-info btn-sm"><%= recipe.author.email %></a></div>
+				          <!-- Add to cart -->
+				          <div class="pull-right"><a href="#" class="btn btn-danger btn-sm">Add to Queue</a></div>
+				          <div class="clearfix"></div>
+					    </div>
+				<% end %>
+				<!-- Items List ends -->
+      
+      	<!--
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Pagination --><!--
+            <ul class="pagination">
+						  <li class="disabled"><a href="#">&laquo;</a></li>
+						  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li><a href="#">&raquo;</a></li>
+            </ul> 
+          </div>
+        </div>-->
+ 			</div>
+ 		</div>
+	</div>
+</div>

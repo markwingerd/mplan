@@ -40,6 +40,7 @@ class RecipesController < ApplicationController
 
 	def new
 		@recipe = Recipe.new
+		@recipe.assets.build
 	end
 
 	def create
@@ -79,7 +80,7 @@ class RecipesController < ApplicationController
 
 	private
 		def recipe_params
-			params.require(:recipe).permit(:title, :description, :instructions, quantities_attributes: [:listName, :amount, :ingredient_name])
+			params.require(:recipe).permit(:title, :description, :instructions, assets_attributes: [:image], quantities_attributes: [:listName, :amount, :ingredient_name])
 		end
 
 		def populate_quantity_list_name_fields(params)
