@@ -1,92 +1,90 @@
 class IngredientsListController < ApplicationController
+  before_filter :authenticate_user!
 
-  	before_filter :authenticate_user!
+  def index
+    @user = User.find(current_user.id)
 
-	def index
-		@user = User.find(current_user.id)
+    @all_ingredients = get_ingredients(@user)
+    # render plain: JSON.pretty_generate(@all_ingredients)
+  end
 
-		@all_ingredients = get_ingredients(@user)
-	end
+  def show
+  end
 
-	def show
-	end
+  def update
+    @user = User.find(current_user)
 
-	def update
-		@user = User.find(current_user)
+    if @user.update(user_params)
+      redirect_to action: :index
+    else
+      render 'edit'
+    end
+  end
 
-		if @user.update(user_params)
-		 	redirect_to :action => :index
-		else
-		 	render 'edit'
-		end
-	end
+  def print
+    @user = User.find(current_user.id)
+    if params[:table_ingredients]
+      @all_ingredients = get_ingredients(@user)
+    elsif params[:all_recipes]
+      @all_recipes = @user.recipes
+    end
 
-	def print
-		@user = User.find(current_user.id)
-		if params[:table_ingredients]
-			@all_ingredients = get_ingredients(@user)
-		elsif params[:all_recipes]
-			@all_recipes = @user.recipes
-		end
+    render layout: 'print'
+  end
 
-		render :layout => 'print'
-	end
+  private
 
-	private
-		def user_params
-			params.require(:user).permit(quantities_attributes: [:id, :amount, :ingredient_name, :_destroy])
-		end
+  def user_params
+    params.require(:user).permit(quantities_attributes:
+                                 [:id,
+                                  :amount,
+                                  :ingredient_name,
+                                  :_destroy])
+  end
 
-		# Takes an array of quantity records and returns a hash of string, quantity values
-		def quantities_to_hash(quantities)
-			ret_value = {}
-		 	for qty in quantities do
-		 		if ret_value.keys.include?(qty.ingredient.name)
-		 			ret_value[qty.ingredient.name] += qty.amount
-		 		else
-					ret_value[qty.ingredient.name] = qty.amount
-				end
-		 	end	
-			
-			return ret_value
-		end
+  # Takes an array of quantity records and returns a hash of string:quantity
+  # values.
+  def qtys_to_hash(quantities)
+    ret_value = {}
+    quantities.each do |qty|
+      if ret_value.keys.include?(qty.ingredient.name)
+        ret_value[qty.ingredient.name] += qty.amount
+      else
+        ret_value[qty.ingredient.name] = qty.amount
+      end
+    end
+    return ret_value
+  end
 
-		def get_ingredients(user)
-			stocked_ingredients = quantities_to_hash(user.quantities)
+  def recipe_qtys_to_arr(recipes)
+    ret_value = []
+    recipes.each do |recipe|
+      ret_value << recipe.quantities
+    end
+    return ret_value
+  end
 
-			# Get a hash of all ingredient names for each recipe a user has queued.
-			all_quantities = []
-			for recipe in user.recipes do
-				all_quantities << recipe.quantities
-			end
-			needed_ingredients = quantities_to_hash(all_quantities.flatten)
+  def assemble_qtys_list(recipe_qtys, stocked_qtys)
+    all_qtys = []
+    recipe_qtys.each do |name, qty|
+      if stocked_qtys.keys.include?(name)
+        all_qtys << [[name, qty], [name, stocked_qtys[name]]]
+        stocked_qtys.delete(name)
+      else
+        all_qtys << [[name, qty], [nil, nil]]
+      end
+    end
+    stocked_qtys.each do |name, qty|
+      all_qtys << [[nil, nil], [name, qty]]
+    end
 
-			# TODO: Refactor this. Its a hot mess.
-			# Combine both hashes into a three dimentional list for the view. The 
-			# outer list represents every unique ingredient a user may have. The
-			# middle list represents a single ingredient and only ever contains
-			# two lists, the first is needed ingredients (shopping list) obtained
-			# from recipes, and the second is stocked ingredients. The innermost 
-			# list represents a sort of key, value pair where the first is an
-			# amount of an ingredient while the second is the name of the ingredient.
-			all_ingredients = []
-			for ingredient in needed_ingredients.keys do
-				if stocked_ingredients.keys.include?(ingredient)
-					all_ingredients << [ [needed_ingredients[ingredient], ingredient], 
-										  [stocked_ingredients[ingredient], ingredient] ]
-					stocked_ingredients.delete(ingredient)
-				else
-					all_ingredients << [ [needed_ingredients[ingredient], ingredient], 
-										  ["", ""] ] # No stocked ingredients
-				end
-			end
-			# No more needed ingredients, fill the remaining stocked at the end
-			# of the list.
-			for ingredient in stocked_ingredients.keys do
-				all_ingredients << [ ["", ""], 
-									  [stocked_ingredients[ingredient], ingredient] ]
-			end
+    return all_qtys
+  end
 
-			return all_ingredients
-		end
+  def get_ingredients(user)
+    stocked_qtys = qtys_to_hash(user.quantities)
+    recipe_qtys = qtys_to_hash(recipe_qtys_to_arr(user.recipes).flatten)
+    all_qtys = assemble_qtys_list(recipe_qtys, stocked_qtys)
+    return all_qtys
+  end
 end

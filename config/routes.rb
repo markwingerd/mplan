@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: "users/registrations" }
+  devise_for :users, controllers: { registrations:'users/registrations' }
 
   resources :recipes do
     resources :assets
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :queued_recipes
-  
+
   resources :ingredients do
     collection do
       put :update_multiple
@@ -29,7 +29,6 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'landing#index'
-
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
