@@ -1,0 +1,56 @@
+div class="shop-items"
+  div class="container"
+    div class="row"
+      div class="col-md-9 col-md-push-3"
+        = form_tag recipes_path, :method => 'get' do
+          p
+            = text_field_tag :query, params[:query]
+            = submit_tag "Search", :name => nil
+
+        h1 Recipes
+        - if user_signed_in?
+          = link_to "Add new recipe", new_recipe_path
+
+        - @recipes.each_with_index do |recipe, index|
+          div class="item"
+            div class="row"
+              - if recipe.property.vegan
+                div class="lifestyle col-sm-2"
+                  span Vegan
+              - elsif recipe.property.vegitarian
+                div class="lifestyle col-sm-2"
+                  span Vegitarian
+              - if recipe.property.glutenFree
+                div class="allergen col-sm-2"
+                  span Gluten Free
+              - if recipe.property.lactoseFree
+                div class="allergen col-sm-2"
+                  span Lactose Free
+      
+            div class="row"
+              / Recipe image
+              div class="col-xs-3"
+                div class="item-image"
+                  = link_to image_tag(recipe.assets.first.image.url(:thumb), :class => 'img-responsive'), recipe
+              / Recipe details
+              div class="col-xs-9"
+                div class="item-details"
+                  h5 
+                    = link_to recipe.title, recipe
+                  div class="clearfix"
+                    / What does this tag do?
+                  p class="line-limit-4"
+                    = recipe.description
+
+            / Recipe footer
+            hr
+            div class="pull-left"
+              a href="#" class="btn btn-info btn-sm"
+                = recipe.author.email
+            div class="pull-right"
+              a href="#" class="btn btn-danger btn-sm"
+                | Add to Queue
+            div class="clearfix"
+              / What does this tag do?
+        / Recipes End
+        / Insert pagenation here

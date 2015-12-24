@@ -1,0 +1,12 @@
+div class="container"
+  - if user_signed_in?
+    div class="pull-right"
+      = link_to 'Add to Queue', 
+          { :controller => 'queued_recipes',
+            :action => 'create',
+            :recipe_id => @recipe.id,
+            :user_id => current_user.id},
+          :method => 'post', 
+          :class => 'btn btn-danger btn-sm'
+    
+  = render :partial => 'recipe'
