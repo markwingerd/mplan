@@ -1,0 +1,17 @@
+table border=1
+  tr
+    th Grocery List
+    th Items on hand
+  - @all_ingredients.each do |needed, stocked|
+    tr
+      td
+        - if stocked[1].to_f >= needed[1].to_f
+          strike
+            => needed[1]
+            = needed[0]
+        - else
+          => needed[1]
+          = needed[0]
+      td
+        => stocked[1]
+        = stocked[0]

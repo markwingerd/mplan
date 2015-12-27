@@ -1,11 +1,9 @@
 class Ingredient < ActiveRecord::Base
-	# attr_accessible :name
+  has_many :quantities
+  has_many :recipes, through: :quantities
 
-	has_many :quantities
-	has_many :recipes, through: :quantities
+  has_one :property
 
-	has_one :property
-
-	accepts_nested_attributes_for :property,
-           :allow_destroy => true
+  accepts_nested_attributes_for :property,
+                                allow_destroy: true
 end

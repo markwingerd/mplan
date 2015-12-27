@@ -1,0 +1,32 @@
+- if current_user.admin
+  h2 User Status: Admin
+  = link_to "Ingredients", :controller => 'ingredients', :action => 'index'
+
+h1 Recipes Authored
+- @user.authored_recipes.each do |recipe|
+  = link_to recipe.title, recipe_path(recipe)
+  br
+
+h1 Recipes Queued
+= link_to 'Print', { :action => 'print', :all_recipes => 'true' }
+br
+
+- @user.queued_recipes.each do |qr|
+  = link_to qr.recipe.title, qr.recipe
+  span  | 
+  = link_to "remove",  queued_recipe_path(qr), :method => :delete
+  br
+
+= link_to 'Print', { :action => 'print', :table_ingredients => 'true' }
+div class="printable"
+  = render :partial => 'table_ingredients'
+br
+
+= form_for @user, url: ingredients_list_path(current_user) do |f|
+  fieldset id="recipe-ingredients"
+    ol
+      = f.fields_for :quantities do |quantity|
+        = render 'quantity_fields', f: quantity
+    = link_to_add_association 'add ingredient', f, :quantities, 'data-association-insertion-node' => "#recipe-ingredients ol", 'data-association-insertion-method' => "append", :wrap_object => Proc.new {|quantity| quantity.build_ingredient; quantity }
+    
+    = f.submit

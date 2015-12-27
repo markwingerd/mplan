@@ -1,0 +1,66 @@
+div class="blog"
+  div class="container"
+    /Recipe Properties
+    div class="row"
+      div class="col-sm-9"
+        - if @recipe.property.vegan
+          div class="lifestyle col-sm-3"
+            span Vegan
+        - elsif @recipe.property.vegitarian
+          div class="lifestyle col-sm-3"
+            span Vegitarian
+        - if @recipe.property.glutenFree
+          div class="allergen col-sm-3"
+            span Gluten Free
+        - if @recipe.property.lactoseFree
+          div class="allergen col-sm-3"
+            span Lactose Free
+
+    div class="row"
+      div class="col-sm-4"
+        div class="sidebar"
+          / Recipe Image
+          div class="widget"
+            = image_tag @recipe.assets.first.image.url(:medium), :class => "img-responsive recipe-image"
+          div class="widget"
+            - list_name = @recipe.quantities.first.listName
+            - if @recipe.quantities.first.listName.to_s != ""
+              h4 = @recipe.quantities.first.listName
+            - else
+              h4 Ingredients:
+            ul
+              - @recipe.quantities.each do |qty|
+                /We need to end the ul tag to create a new list.
+                - if qty.listName != list_name
+                  | </ul>
+                  br
+                  h4 = qty.listName
+                  - list_name = qty.listName
+                  | <ul>
+                li
+                  = qty.amount
+                  = qty.ingredient.name
+
+      div class="col-sm-5"
+        div class="posts"
+          div class="entry"
+            h2 = @recipe.title
+            a href="#" 
+              = @recipe.author.email
+            div class="bthumb"
+              /What does this tag do
+
+            p
+              = @recipe.description
+            div class="bthumb"
+              /What does this tag do
+
+            p
+              = @recipe.instructions
+            div class="bthumb"
+              /What does this tag do
+          div class="clearfix"
+              /What does this tag do
+
+      div class="col-sm-3"
+        /This space can be used for something

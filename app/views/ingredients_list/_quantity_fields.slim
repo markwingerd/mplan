@@ -1,0 +1,8 @@
+li class="control-group nested-fields"
+ 	div class="controls"
+ 		= f.label :amount, "Amount:"
+ 		= f.text_field :amount
+
+ 		= f.text_field :ingredient_name, class: "ingredient_autocomplete"
+
+ 		= link_to_remove_association "remove", f

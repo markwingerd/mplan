@@ -1,0 +1,35 @@
+- if user_signed_in?
+	p
+		= form_for @base_ingredient do |bif|
+		  = bif.label :base_ingredient
+		  br
+ 			= bif.text_field :name, class: "ingredient_autocomplete"
+
+			= bif.submit "Use Base", disabled: @base_ingredient.name
+
+	= form_for @ingredient do |f|
+		p
+		  = f.label :name
+		  br
+		  = f.text_field :name
+		p
+		  = f.check_box("[property_attributes]vegitarian", 
+							{checked: @base_ingredient.property.vegitarian})
+		  = f.label :vegitarian
+		p
+		  = f.check_box("[property_attributes]vegan", 
+							{checked: @base_ingredient.property.vegan})
+		  = f.label :vegan
+		p
+		  = f.check_box("[property_attributes]lactoseFree", 
+							{checked: @base_ingredient.property.lactoseFree})
+		  = f.label :lactoseFree
+		p
+		  = f.check_box("[property_attributes]glutenFree", 
+							{checked: @base_ingredient.property.glutenFree})
+		  = f.label :glutenFree
+		p
+		  = f.check_box("buyInWholeUnits")
+		  = f.label :buyInWholeUnits
+
+		= f.submit
