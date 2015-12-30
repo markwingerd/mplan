@@ -3,6 +3,9 @@ Meal Planner is a rails based website which will provide several features for us
 
 # Setup
 - `bundle install`
+- `cp config/secrets.yml.dist config/secrets.yml`
+- Use `rake secret` to generate a secret_key_base for development and test in the new secrets.yml file. (Manually add the output in the file)
+- install ImageMagick
 - `rake db:create db:migrate db:seed`
 - `rails server`
 - `rake sunspot:solr:start`
