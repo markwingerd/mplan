@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   has_many :authored_recipes,
            class_name: 'Recipe',
            foreign_key: 'author_id'
+  has_many :created_ingredients,
+           class_name: 'Ingredient',
+           foreign_key: 'creator_id'
 
   accepts_nested_attributes_for :quantities,
                                 reject_if: :all_blank,

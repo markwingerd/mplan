@@ -25,10 +25,15 @@ ActiveRecord::Schema.define(version: 20151212075025) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
+    t.integer  "creator_id"
+    t.boolean  "checkedByUser",   default: false
+    t.boolean  "checkedByAdmin",  default: false
     t.boolean  "buyInWholeUnits", default: true
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
+
+  add_index "ingredients", ["creator_id"], name: "index_ingredients_on_creator_id"
 
   create_table "properties", force: :cascade do |t|
     t.integer  "recipe_id"
