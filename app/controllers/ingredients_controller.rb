@@ -31,7 +31,6 @@ class IngredientsController < ApplicationController
   def autocomplete
     @ingredients = Ingredient.order(:name).where('name like ?',
                                                  "%#{params[:term]}%")
-    puts @ingredients.map(&:name)
     render json: @ingredients.map(&:name)
 
   end
