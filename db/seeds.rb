@@ -14,8 +14,7 @@ Asset.create!([
   {recipe_id: 2, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
   {recipe_id: 3, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
   {recipe_id: 4, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
-  {recipe_id: 5, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
-  {recipe_id: 6, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")}
+  {recipe_id: 5, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")}
 ])
 Ingredient.create!([
   {name: "Chicken", buyInWholeUnits: true},
