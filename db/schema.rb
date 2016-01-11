@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20151212075025) do
     t.integer  "ingredient_id"
     t.boolean  "vegitarian",    default: false
     t.boolean  "vegan",         default: false
-    t.boolean  "lactoseFree",   default: true
-    t.boolean  "glutenFree",    default: true
+    t.boolean  "lactoseFree",   default: false
+    t.boolean  "glutenFree",    default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end

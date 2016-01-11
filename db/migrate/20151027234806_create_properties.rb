@@ -9,8 +9,8 @@ class CreateProperties < ActiveRecord::Migration
     	t.boolean :vegan, :default => false
 
     	# Allergens
-    	t.boolean :lactoseFree, :default => true
-    	t.boolean :glutenFree, :default => true
+    	t.boolean :lactoseFree, :default => false
+    	t.boolean :glutenFree, :default => false
 
       t.timestamps null: false
     end

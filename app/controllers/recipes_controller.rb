@@ -76,6 +76,11 @@ class RecipesController < ApplicationController
   end
 
   def populate_recipe_properties(recipe)
+    recipe.property.glutenFree = true
+    recipe.property.lactoseFree = true
+    recipe.property.vegitarian = true
+    recipe.property.vegan = true
+
     recipe.ingredients.each do |ing|
       recipe.property.glutenFree = false unless ing.property.glutenFree
       recipe.property.lactoseFree = false unless ing.property.lactoseFree
