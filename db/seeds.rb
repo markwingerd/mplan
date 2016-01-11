@@ -14,8 +14,7 @@ Asset.create!([
   {recipe_id: 2, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
   {recipe_id: 3, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
   {recipe_id: 4, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
-  {recipe_id: 5, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")},
-  {recipe_id: 6, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")}
+  {recipe_id: 5, image: File.new("#{Rails.root}/public/img/no_image_available.jpg")}
 ])
 Ingredient.create!([
   {name: "Chicken", creator_id: 1, buyInWholeUnits: true},
@@ -65,8 +64,8 @@ Property.create!([
   {recipe_id: nil, ingredient_id: 15, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
   {recipe_id: nil, ingredient_id: 16, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
   {recipe_id: nil, ingredient_id: 17, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
-  {recipe_id: nil, ingredient_id: 18, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
-  {recipe_id: nil, ingredient_id: 19, vegitarian: true, vegan: false, lactoseFree: false, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 18, vegitarian: true, vegan: false, lactoseFree: false, glutenFree: true},
+  {recipe_id: nil, ingredient_id: 19, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
   {recipe_id: nil, ingredient_id: 20, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
   {recipe_id: 4, ingredient_id: nil, vegitarian: false, vegan: false, lactoseFree: false, glutenFree: true},
   {recipe_id: nil, ingredient_id: 21, vegitarian: true, vegan: true, lactoseFree: true, glutenFree: true},
