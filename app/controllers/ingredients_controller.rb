@@ -22,7 +22,7 @@ class IngredientsController < ApplicationController
     else
       if Ingredient.new(ingredient_params).save
         redirect_to action: 'index'
-      else 
+      else
         render action: 'new'
       end
     end
@@ -32,22 +32,33 @@ class IngredientsController < ApplicationController
     @ingredients = Ingredient.order(:name).where('name like ?',
                                                  "%#{params[:term]}%")
     render json: @ingredients.map(&:name)
-
   end
 
   def update_multiple
+    changed_ingredient_ids = []
     ingredients = Ingredient.find(params[:ingredient][:ingredient].keys)
-    ingredients.each do |ingredient|
-      add_property_id_to_params(ingredient)
-      ingredient_params = ingredient_params_by_id(ingredient.id)
-      ingredient_params = auto_set_vegan(ingredient_params)
-      ingredient.update_attributes!(ingredient_params)
+
+    ingredients.each do |ing|
+      add_property_id_to_params(ing)
+      # ingredient_params = auto_set_vegan(ingredient_params)
+      ing.update_attributes!(ingredient_params_by_id(ing.id))
+
+      changed_ingredient_ids << ing.id if ing.property.previous_changes != {}
     end
 
-    redirect_to action: 'index'
+    # Update the properties of every recipe that uses these ingredients.
+    update_all_recipes(changed_ingredient_ids)
+
+    # Return to previous page.
+    session[:return_to] ||= request.referer
+    redirect_to session.delete(:return_to)
   end
 
   private
+
+  def current_page
+
+  end
 
   # Add property_id to params to allow rails to update the record rather
   # than create a new one.
@@ -87,5 +98,13 @@ class IngredientsController < ApplicationController
         :vegan,
         :lactoseFree,
         :glutenFree])
+  end
+
+  def update_all_recipes(ingredient_ids)
+    recipes = Recipe.find_by_ingredient_ids(ingredient_ids)
+    recipes.each do |recipe|
+      recipe.populate_properties
+      recipe.property.save
+    end
   end
 end

@@ -13,5 +13,6 @@ class Quantity < ActiveRecord::Base
   def ingredient_name=(name)
     self.ingredient = Ingredient.find_by_name(name) if name.present?
     self.ingredient ||= Ingredient.new(name: name)
+    self.ingredient.property ||= Property.new
   end
 end
