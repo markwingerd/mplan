@@ -39,7 +39,7 @@ class IngredientsController < ApplicationController
     ingredients = Ingredient.find(params[:ingredient][:ingredient].keys)
 
     ingredients.each do |ing|
-      add_property_id_to_params(ing)
+      add_to_params(ing)
       # ingredient_params = auto_set_vegan(ingredient_params)
       ing.update_attributes!(ingredient_params_by_id(ing.id))
 
@@ -60,11 +60,15 @@ class IngredientsController < ApplicationController
 
   end
 
-  # Add property_id to params to allow rails to update the record rather
-  # than create a new one.
-  def add_property_id_to_params(ingredient)
+  # Add extra values to params. property_id is needed to allow rails to update
+  # the record rather than create a new one. checkedByUser is set to true so
+  # the creator of the ingredient doesn't always get asked to update the
+  # properties of the ingredient.
+  def add_to_params(ingredient)
     params[:ingredient][:ingredient][ingredient.id.to_s] \
           [:property_attributes][:id] = ingredient.property.id
+    params[:ingredient][:ingredient][ingredient.id.to_s] \
+          [:checkedByUser] = true
   end
 
   # If vegan is true then the ingredient is obviously also vegitarian.
@@ -92,6 +96,7 @@ class IngredientsController < ApplicationController
   def ingredient_params_by_id(id)
     params.require(:ingredient).require(:ingredient).require(id.to_s).permit(
       :buyInWholeUnits,
+      :checkedByUser,
       property_attributes: [
         :id,
         :vegitarian,
