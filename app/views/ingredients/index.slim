@@ -1,29 +1,6 @@
 - if current_user.admin
 	= form_for :ingredient, :url => update_multiple_ingredients_path, :html => { :method => :put } do |f|
-		= f.label :name
-		table border="1"
-			tr
-				th Ingredient
-				th Vegitarian
-				th Vegan
-				th Lactose Free
-				th Gluten Free
-				th Buy in whole units
-			- @ingredients.each do |ingredient|
-				tr
-					/http://guides.rubyonrails.org/form_helpers.html#understanding-parameter-naming-conventions
-					= f.fields_for ingredient, index: ingredient.id do |i|
-						td = ingredient.name
-						td = i.check_box("[property_attributes]vegitarian", 
-								{checked: ingredient.property.vegitarian})
-						td = i.check_box("[property_attributes]vegan", 
-								{checked: ingredient.property.vegan})
-						td = i.check_box("[property_attributes]lactoseFree", 
-								{checked: ingredient.property.lactoseFree})
-						td = i.check_box("[property_attributes]glutenFree", 
-								{checked: ingredient.property.glutenFree})
-						td = i.check_box("buyInWholeUnits", 
-								{checked: ingredient.buyInWholeUnits})
+		= render partial: 'ingredients', locals: { f: f, ingredients: @ingredients }
 		p 
 			= f.submit "Submit"
 - else

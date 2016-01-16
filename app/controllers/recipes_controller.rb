@@ -21,14 +21,12 @@ class RecipesController < ApplicationController
   end
 
   def create
-    # render plain: JSON.pretty_generate(params)
     populate_quantity_list_name_fields(params)
     @recipe = Recipe.new(recipe_params)
     @recipe.author = current_user
-    @recipe.property = Property.new
 
     if @recipe.save
-      @recipe = populate_recipe_properties(@recipe)
+      @recipe.populate_properties
       # @recipe.save is needed to trigger Sunspot to index that above changes
       # to @recipe.property
       if @recipe.property.save && @recipe.save
@@ -73,15 +71,5 @@ class RecipesController < ApplicationController
         params[:recipe][:quantities_attributes][key][:listName] = list_name
       end
     end
-  end
-
-  def populate_recipe_properties(recipe)
-    recipe.ingredients.each do |ing|
-      recipe.property.glutenFree = false unless ing.property.glutenFree
-      recipe.property.lactoseFree = false unless ing.property.lactoseFree
-      recipe.property.vegitarian = false unless ing.property.vegitarian
-      recipe.property.vegan = false unless ing.property.vegan
-    end
-    return recipe
   end
 end

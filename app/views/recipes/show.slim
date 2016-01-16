@@ -1,12 +1,24 @@
 div class="container"
   - if user_signed_in?
+
+    - if current_user == @recipe.author
+      - @ingredients = @recipe.ingredients.select { |ingredient| ingredient.checkedByUser == false}
+      - if @ingredients.any?
+        div class="row"
+          h2 We've noticed that you have some newly defined ingredients.
+          | Please update their attributes.
+          = form_for @ingredients, :url => update_multiple_ingredients_path, :html => {:method => :put} do |f|
+            = render partial: 'ingredients/ingredients', locals: {f: f, ingredients: @ingredients}
+            p
+              = f.submit "Submit"
+
     div class="pull-right"
-      = link_to 'Add to Queue', 
+      = link_to 'Add to Queue',
           { :controller => 'queued_recipes',
             :action => 'create',
             :recipe_id => @recipe.id,
             :user_id => current_user.id},
-          :method => 'post', 
+          :method => 'post',
           :class => 'btn btn-danger btn-sm'
-    
+
   = render :partial => 'recipe'
