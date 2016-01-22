@@ -57,6 +57,7 @@ class RecipesController < ApplicationController
                                    assets_attributes: [:image],
                                    quantities_attributes: [:listName,
                                                            :amount,
+                                                           :measurement,
                                                            :ingredient_name
                                                           ]
                                   )

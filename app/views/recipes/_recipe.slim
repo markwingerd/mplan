@@ -38,7 +38,8 @@ div class="blog"
                   - list_name = qty.listName
                   | <ul>
                 li
-                  = qty.amount
+                  => qty.amount
+                  => qty.measurement
                   = qty.ingredient.name
 
       div class="col-sm-5"
