@@ -5,13 +5,16 @@ table border=1
   - @all_ingredients.each do |needed, stocked|
     tr
       td
-        - if stocked[1].to_f >= needed[1].to_f
+        - if stocked[1].amount.to_f >= needed[1].amount.to_f
           strike
-            => needed[1]
+            => needed[1].amount
+            => needed[1].measurement
             = needed[0]
         - else
-          => needed[1]
+          => needed[1].amount
+          => needed[1].measurement
           = needed[0]
       td
-        => stocked[1]
+        => stocked[1].amount
+        => stocked[1].measurement
         = stocked[0]

@@ -48,9 +48,9 @@ class IngredientsListController < ApplicationController
     ret_value = {}
     quantities.each do |qty|
       if ret_value.keys.include?(qty.ingredient.name)
-        ret_value[qty.ingredient.name] += qty.amount
+        ret_value[qty.ingredient.name] += qty
       else
-        ret_value[qty.ingredient.name] = qty.amount
+        ret_value[qty.ingredient.name] = qty
       end
     end
     return ret_value
@@ -71,11 +71,11 @@ class IngredientsListController < ApplicationController
         all_qtys << [[name, qty], [name, stocked_qtys[name]]]
         stocked_qtys.delete(name)
       else
-        all_qtys << [[name, qty], [nil, nil]]
+        all_qtys << [[name, qty], [nil, Quantity.new]]
       end
     end
     stocked_qtys.each do |name, qty|
-      all_qtys << [[nil, nil], [name, qty]]
+      all_qtys << [[nil, Quantity.new], [name, qty]]
     end
 
     return all_qtys
