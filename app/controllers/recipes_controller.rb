@@ -58,7 +58,10 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit(:title,
                                    :description,
                                    :instructions,
-                                   assets_attributes: [:image],
+                                   assets_attributes: [:id,
+                                                       :image,
+                                                       :_destroy
+                                                      ],
                                    quantities_attributes: [:id,
                                                            :listName,
                                                            :amount,
