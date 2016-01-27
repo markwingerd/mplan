@@ -20,6 +20,10 @@ class RecipesController < ApplicationController
     @recipe.assets.build
   end
 
+  def edit
+    @recipe = Recipe.find(params[:id])
+  end
+
   def create
     populate_quantity_list_name_fields(params)
     @recipe = Recipe.new(recipe_params)
@@ -55,10 +59,12 @@ class RecipesController < ApplicationController
                                    :description,
                                    :instructions,
                                    assets_attributes: [:image],
-                                   quantities_attributes: [:listName,
+                                   quantities_attributes: [:id,
+                                                           :listName,
                                                            :amount,
                                                            :measurement,
-                                                           :ingredient_name
+                                                           :ingredient_name,
+                                                           :_destroy
                                                           ]
                                   )
   end
