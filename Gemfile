@@ -42,6 +42,7 @@ gem 'jquery-turbolinks'
 gem 'seed_dump' #https://github.com/rroblak/seed_dump
 gem 'paperclip', '~> 4.3'
 gem 'slim-rails'
+gem 'ruby-units'
 ###
 
 # Use ActiveModel has_secure_password

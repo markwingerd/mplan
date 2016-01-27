@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20151212075025) do
 
   create_table "quantities", force: :cascade do |t|
     t.decimal  "amount"
+    t.string   "measurement"
     t.string   "listName"
     t.integer  "recipe_id"
     t.integer  "user_id"

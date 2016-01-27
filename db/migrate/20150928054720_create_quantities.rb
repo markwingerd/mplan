@@ -2,6 +2,7 @@ class CreateQuantities < ActiveRecord::Migration
   def change
     create_table :quantities do |t|
     	t.decimal :amount
+      t.string :measurement
       t.string :listName
     	#t.boolean :needed, default: true #This is set to false only when the user already has the item.
 
