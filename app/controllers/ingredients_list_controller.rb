@@ -42,48 +42,25 @@ class IngredientsListController < ApplicationController
                                   :_destroy])
   end
 
-  # Takes an array of quantity records and returns a hash of string:quantity
-  # values.
-  def qtys_to_hash(quantities)
-    ret_value = {}
-    quantities.each do |qty|
-      if ret_value.keys.include?(qty.ingredient.name)
-        ret_value[qty.ingredient.name] += qty
-      else
-        ret_value[qty.ingredient.name] = qty
-      end
-    end
-    return ret_value
-  end
-
-  def recipe_qtys_to_arr(recipes)
-    ret_value = []
-    recipes.each do |recipe|
-      ret_value << recipe.quantities
-    end
-    return ret_value
-  end
-
+  # Assembles data for a users ingredients table.  Returns and array of
+  # string:quantity:quantity arrays. The first value is an ingredient name,
+  # the second is a quantity needed for a recipe, the third is a quantity the
+  # user claims to already have.  [[name, gl, on]]
   def assemble_qtys_list(recipe_qtys, stocked_qtys)
     all_qtys = []
     recipe_qtys.each do |name, qty|
-      if stocked_qtys.keys.include?(name)
-        all_qtys << [[name, qty], [name, stocked_qtys[name]]]
-        stocked_qtys.delete(name)
-      else
-        all_qtys << [[name, qty], [nil, Quantity.new]]
-      end
+      all_qtys << [name, qty, stocked_qtys[name]]
+      stocked_qtys.delete(name)
     end
     stocked_qtys.each do |name, qty|
-      all_qtys << [[nil, Quantity.new], [name, qty]]
+      all_qtys << [name, nil, qty]
     end
-
     return all_qtys
   end
 
   def get_ingredients(user)
-    stocked_qtys = qtys_to_hash(user.quantities)
-    recipe_qtys = qtys_to_hash(recipe_qtys_to_arr(user.recipes).flatten)
+    stocked_qtys = Quantity.to_hash(user.quantities)
+    recipe_qtys = Quantity.to_hash(user.all_recipe_quantities)
     all_qtys = assemble_qtys_list(recipe_qtys, stocked_qtys)
     return all_qtys
   end

@@ -2,19 +2,15 @@ table border=1
   tr
     th Grocery List
     th Items on hand
-  - @all_ingredients.each do |needed, stocked|
+  - @all_ingredients.each do |name, needed, stocked|
     tr
       td
-        - if stocked[1].amount.to_f >= needed[1].amount.to_f
-          strike
-            => needed[1].amount
-            => needed[1].measurement
-            = needed[0]
-        - else
-          => needed[1].amount
-          => needed[1].measurement
-          = needed[0]
+        - unless needed.nil?
+          => needed.amount
+          => needed.measurement
+          = name
       td
-        => stocked[1].amount
-        => stocked[1].measurement
-        = stocked[0]
+        - unless stocked.nil?
+          => stocked.amount
+          => stocked.measurement
+          = name

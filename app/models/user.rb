@@ -21,4 +21,13 @@ class User < ActiveRecord::Base
                                 reject_if: :all_blank,
                                 allow_destroy: true
   accepts_nested_attributes_for :ingredients
+
+  # Returns a single array of all quanities for all recipes.
+  def all_recipe_quantities
+    ret_value = []
+    recipes.each do |recipe|
+      ret_value << recipe.quantities
+    end
+    return ret_value.flatten
+  end
 end
