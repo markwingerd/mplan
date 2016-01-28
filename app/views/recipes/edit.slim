@@ -18,10 +18,11 @@
 					= f.label :image
 
 				ul
-					= f.fields_for :assets do |asset|
-						= render 'asset_fields', :f => asset
-					= f.fields_for :assets, Asset.new do |asset|
-						= render 'asset_fields', :f => asset
+					= f.fields_for :assets do |a|
+						/= image_tag a.object.image.url(:thumb)
+						= render 'asset_fields', :f => a
+					= f.fields_for :assets, Asset.new do |a|
+						= render 'asset_fields', :f => a
 						span id="insertion"
 							/partials render here
 						/span
