@@ -19,15 +19,11 @@
 
 				ul
 					= f.fields_for :assets do |a|
-						/= image_tag a.object.image.url(:thumb)
 						= render 'asset_fields', :f => a
-					= f.fields_for :assets, Asset.new do |a|
-						= render 'asset_fields', :f => a
-						span id="insertion"
-							/partials render here
-						/span
+					span id="insertion"
+						/partials render here
 
-						= link_to_add_association 'Add another image', f, :assets, 'data-association-insertion-node' => "#insertion"
+				= link_to_add_association 'Add another image', f, :assets, 'data-association-insertion-node' => "#insertion"
 
 		fieldset id="recipe-ingredients"
 			ol
