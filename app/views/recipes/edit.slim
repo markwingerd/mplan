@@ -27,8 +27,13 @@
 
 		fieldset id="recipe-ingredients"
 			ol
+				- list_name = ''
 				= f.fields_for :quantities do |qty|
-					= render 'quantity_fields', :f => qty
+					- if qty.object.listName != list_name
+						- list_name = qty.object.listName
+						= render 'quantity_list_fields', :f => qty
+					- else
+						= render 'quantity_fields', :f => qty
 				/partials render here
 			= link_to_add_association 'add new list', f, :quantities, partial: 'quantity_list_fields', 'data-association-insertion-node' => "#recipe-ingredients ol", 'data-association-insertion-method' => "append"
 			|  | 
