@@ -1,4 +1,7 @@
 li class="control-group nested-fields"
 	div class="controls"
-		= f.file_field :image
+		- if f.object.image.instance.id.nil?
+			= f.file_field :image
+		- else
+			= image_tag f.object.image.url(:thumb)
 		= link_to_remove_association "Remove image", f

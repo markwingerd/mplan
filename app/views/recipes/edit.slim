@@ -1,0 +1,42 @@
+- if user_signed_in?
+	= form_for @recipe, html: {class: "form-horizontal"} do |f|
+		fieldset id="recipe-meta"
+			ol
+				li class="control-group"
+					= f.label :title, "Recipe Name", class: "control-label"
+					div class="controls"
+						= f.text_field :title
+				li class="control-group"
+					= f.label :description, "A breif description of this recipe", class: "control-label"
+					div class="controls"
+						= f.text_area :description, rows: 5
+				li class="control-group"
+					= f.label :instructions, "Instructions for this recipe", class: "control-label"
+					div class="controls"
+						= f.text_area :instructions, rows: 10
+				li class="control-group"
+					= f.label :image
+
+				ul
+					= f.fields_for :assets do |a|
+						= render 'asset_fields', :f => a
+					span id="insertion"
+						/partials render here
+
+				= link_to_add_association 'Add another image', f, :assets, 'data-association-insertion-node' => "#insertion"
+
+		fieldset id="recipe-ingredients"
+			ol
+				- list_name = ''
+				= f.fields_for :quantities do |qty|
+					- if qty.object.listName != list_name
+						- list_name = qty.object.listName
+						= render 'quantity_list_fields', :f => qty
+					- else
+						= render 'quantity_fields', :f => qty
+				/partials render here
+			= link_to_add_association 'add new list', f, :quantities, partial: 'quantity_list_fields', 'data-association-insertion-node' => "#recipe-ingredients ol", 'data-association-insertion-method' => "append"
+			|  | 
+			= link_to_add_association 'add ingredient', f, :quantities, 'data-association-insertion-node' => "#recipe-ingredients ol", 'data-association-insertion-method' => "append"
+
+		= f.submit 
